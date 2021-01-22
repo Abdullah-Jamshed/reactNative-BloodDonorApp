@@ -10,6 +10,7 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 // Screens
 import LoginScreen from '../screens/LoginScreen';
 import HomeScreen from '../screens/HomeScreen';
+import SignupScreen from '../screens/SignupScreen';
 
 import DrawerContent from '../components/DrawerContent';
 
@@ -31,6 +32,7 @@ const Navigation = () => {
       {user === null ? (
         <Stack.Navigator headerMode={false}>
           <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Signup" component={SignupScreen} />
         </Stack.Navigator>
       ) : (
         <Drawer.Navigator
