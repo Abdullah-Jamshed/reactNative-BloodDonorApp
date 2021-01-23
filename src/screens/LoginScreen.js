@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -9,15 +9,71 @@ import {
   TouchableOpacity,
   Keyboard,
 } from 'react-native';
+import auth from '@react-native-firebase/auth';
+import {AccessToken, LoginManager} from 'react-native-fbsdk';
+
+import {connect} from 'react-redux';
+import {userAction} from '../store/actions/homeActions';
 
 import HomeScreen from './HomeScreen';
 import SignupScreen from './SignupScreen';
 
 const {width, height} = Dimensions.get('window');
 
-const LoginScreen = ({navigation}) => {
+const LoginScreen = ({navigation, user, userActionSet}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  // .then(() => {
+  //   console.log('user exits & signed in!');
+  // })
+  const signIn = () => {
+    auth()
+      .signInWithEmailAndPassword(email, password)
+      .catch((error) => {
+        if (error.code === 'auth/invalid-email') {
+          console.log('That email address is invalid!');
+        }
+        console.error(error);
+      });
+  };
+  const facebookLogin = async () => {
+    
+    const result = await LoginManager.logInWithPermissions([
+      'public_profile',
+      'email',
+    ]);
+
+    if (result.isCancelled) {
+      setLoading(false);
+    }
+
+    const data = await AccessToken.getCurrentAccessToken();
+
+    if (!data) {
+      throw 'Something went wrong obtaining access token';
+    }
+
+    const facebookCredential = auth.FacebookAuthProvider.credential(
+      data.accessToken,
+    );
+
+    auth().signInWithCredential(facebookCredential)
+  };
+
+  // const onAuthStateChange = (userCred) => {
+  //   if (userCred) {
+  //     userActionSet(userCred);
+  //   } else {
+  //     userActionSet(null);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   const subscriber = auth().onAuthStateChanged(onAuthStateChange);
+  //   return subscriber; // unsubscribe on unmount
+  // }, []);
+
   return (
     <>
       <View style={styles.container}>
@@ -52,11 +108,21 @@ const LoginScreen = ({navigation}) => {
                   : styles.button
               }
               activeOpacity={0.9}
-              disabled={email === '' || password === '' ? true : false}>
+              disabled={email === '' || password === '' ? true : false}
+              onPress={signIn}>
               <Text style={styles.buttonText}>Sign In</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={()=>navigation.navigate("Signup")}>
+            <TouchableOpacity
+              style={styles.button}
+              activeOpacity={0.9}
+              onPress={() => navigation.navigate('Signup')}>
               <Text style={styles.buttonText}>Sign Up</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button}
+              activeOpacity={0.9}
+              onPress={facebookLogin}>
+              <Text style={styles.buttonText}>Login With Facebook</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -114,8 +180,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 10,
     marginBottom: 5,
-    
   },
 });
 
-export default LoginScreen;
+const mapStateToProps = (state) => {
+  return {
+    user: state.homeReducer.user,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    userActionSet: (user) => dispatch(userAction(user)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

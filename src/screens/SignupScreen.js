@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -10,21 +10,66 @@ import {
   Keyboard,
 } from 'react-native';
 
+import auth from '@react-native-firebase/auth';
+import database from '@react-native-firebase/database';
+
+import {connect} from 'react-redux';
+import {
+  nameAction,
+  emailAction,
+  passwordAction,
+  userAction,
+} from '../store/actions/homeActions';
+
 const {width, height} = Dimensions.get('window');
 
-const SignupScreen = ({navigation}) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
+const SignupScreen = ({
+  navigation,
+  name,
+  email,
+  password,
+  nameActionSet,
+  emailActionSet,
+  passwordActionSet,
+  userActionSet,
+  user,
+}) => {
+  const createUser = () => {
+    auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        console.log('User account created & signed in!');
+        var userUpdate = auth().currentUser;
+
+        userUpdate
+          .updateProfile({
+            displayName: name,
+          })
+          .then(function () {
+            // Update successful.
+            userActionSet(auth().currentUser);
+            // console.log("after update",)
+            // console.log('Update successful.');
+          })
+          .catch(function (error) {
+            // An error happened.
+            console.log('Update Unsuccessful.', error);
+          });
+      })
+      .catch((error) => {
+        if (error.code === 'auth/email-already-in-use') {
+          console.log('That email address is already in use!');
+        }
+        if (error.code === 'auth/invalid-email') {
+          console.log('That email address is invalid!');
+        }
+        console.error(error);
+      });
+  };
+
   return (
     <>
       <View style={styles.container}>
-        {/* <View style={styles.circle}>
-          <Image
-            source={require('../assests/bloodDrop.png')}
-            style={{width: 40, height: 40}}
-          />
-        </View> */}
         <View>
           <Text style={styles.heading}> SignUp</Text>
         </View>
@@ -35,7 +80,7 @@ const SignupScreen = ({navigation}) => {
             placeholder="Name"
             keyboardType="name-phone-pad"
             value={name}
-            onChangeText={(text) => setName(text)}
+            onChangeText={(text) => nameActionSet(text)}
           />
           <TextInput
             style={styles.inputFeild}
@@ -43,7 +88,7 @@ const SignupScreen = ({navigation}) => {
             placeholder="email"
             keyboardType="email-address"
             value={email}
-            onChangeText={(text) => setEmail(text)}
+            onChangeText={(text) => emailActionSet(text)}
           />
           <TextInput
             style={styles.inputFeild}
@@ -51,10 +96,11 @@ const SignupScreen = ({navigation}) => {
             placeholder="password"
             secureTextEntry={true}
             value={password}
-            onChangeText={(password) => setPassword(password)}
+            onChangeText={(text) => passwordActionSet(text)}
           />
           <View>
             <TouchableOpacity
+              onPress={createUser}
               style={
                 email === '' || password === ''
                   ? styles.disableButton
@@ -136,7 +182,7 @@ const styles = StyleSheet.create({
   buttonBackText: {
     color: '#fb3d4a',
     fontWeight: 'bold',
-    textDecorationLine:"underline"
+    textDecorationLine: 'underline',
   },
   backButton: {
     width: 80,
@@ -144,9 +190,27 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 8,
-    alignSelf:"center",
-    marginTop:5
+    alignSelf: 'center',
+    marginTop: 5,
   },
 });
 
-export default SignupScreen;
+const mapStateToProps = (state) => {
+  return {
+    user: state.homeReducer.user,
+    name: state.homeReducer.name,
+    email: state.homeReducer.email,
+    password: state.homeReducer.password,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    userActionSet: (user) => dispatch(userAction(user)),
+    nameActionSet: (name) => dispatch(nameAction(name)),
+    emailActionSet: (email) => dispatch(emailAction(email)),
+    passwordActionSet: (password) => dispatch(passwordAction(password)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignupScreen);

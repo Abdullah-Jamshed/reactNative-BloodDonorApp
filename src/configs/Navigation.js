@@ -1,12 +1,15 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text} from 'react-native';
-
-import {connect} from 'react-redux';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
+import auth from '@react-native-firebase/auth';
+import database from '@react-native-firebase/database';
+
+import {connect} from 'react-redux';
+import {userAction} from '../store/actions/homeActions';
 // Screens
 import LoginScreen from '../screens/LoginScreen';
 import HomeScreen from '../screens/HomeScreen';
@@ -25,8 +28,22 @@ const HomeStack = () => {
   );
 };
 
-const Navigation = () => {
-  const [user, setUser] = useState(null);
+const Navigation = ({user, userActionSet}) => {
+  // const [user, setUser] = useState(null);
+
+  const onAuthStateChange = async (userCred) => {
+    if (userCred) {
+      userActionSet(userCred);
+    } else {
+      userActionSet(null);
+    }
+  };
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChange);
+    return subscriber; // unsubscribe on unmount
+  }, []);
+
   return (
     <NavigationContainer>
       {user === null ? (
@@ -45,9 +62,13 @@ const Navigation = () => {
 };
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    user: state.homeReducer.user,
+  };
 };
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    userActionSet: (user) => dispatch(userAction(user)),
+  };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

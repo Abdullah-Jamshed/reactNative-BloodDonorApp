@@ -1,11 +1,44 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-const HomeScreen = () => {
+import {connect} from 'react-redux';
+
+import database from '@react-native-firebase/database';
+
+const HomeScreen = ({user}) => {
+  const createUserNode = async () => {
+    if (user) {
+      const {
+        _snapshot: {value},
+      } = await database().ref(`/`).child(`/users/${user.uid}`).once('value');
+
+      if (!value) {
+        console.log('After data === NULL', user);
+        database().ref('/').child(`users/${user.uid}`).set({
+          uid: user.uid,
+          displayName: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL,
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (String(user.displayName) !== 'null') {
+      createUserNode();
+    }
+  }, [user]);
+
   return (
-    <View style={styles.container}>
-      <Text>HomeScreen</Text>
-    </View>
+    <>
+      {user.displayName && (
+        <View style={styles.container}>
+          <Text>HomeScreen</Text>
+          <Text>{user.displayName}</Text>
+        </View>
+      )}
+    </>
   );
 };
 
@@ -18,4 +51,16 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+const mapStateToProps = (state) => {
+  return {
+    user: state.homeReducer.user,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    userActionSet: (user) => dispatch(userAction(user)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

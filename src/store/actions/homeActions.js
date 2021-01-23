@@ -1,6 +1,25 @@
 const userAction = (user) => {
+  // console.log('user from action ==> ', user);
   return (dispatch) => {
     dispatch({type: 'USER', payload: {user}});
+  };
+};
+const nameAction = (name) => {
+  // console.log('user from action ==> ', user);
+  return (dispatch) => {
+    dispatch({type: 'NAME', payload: {name}});
+  };
+};
+const emailAction = (email) => {
+  // console.log('user from action ==> ', user);
+  return (dispatch) => {
+    dispatch({type: 'EMAIL', payload: {email}});
+  };
+};
+const passwordAction = (password) => {
+  // console.log('user from action ==> ', user);
+  return (dispatch) => {
+    dispatch({type: 'PASSWORD', payload: {password}});
   };
 };
 
@@ -10,4 +29,10 @@ const initializationAction = (flag) => {
   };
 };
 
-export {userAction, initializationAction};
+export {
+  userAction,
+  initializationAction,
+  nameAction,
+  emailAction,
+  passwordAction,
+};
