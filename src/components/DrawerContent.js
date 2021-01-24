@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     color: '#fb3d4a',
     fontWeight: 'bold',
-    fontSize: 17,
+    fontSize: 15,
   },
   drawerOptions: {
     // backgroundColor: 'green',

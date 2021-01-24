@@ -38,7 +38,6 @@ const LoginScreen = ({navigation, user, userActionSet}) => {
       });
   };
   const facebookLogin = async () => {
-    
     const result = await LoginManager.logInWithPermissions([
       'public_profile',
       'email',
@@ -57,22 +56,8 @@ const LoginScreen = ({navigation, user, userActionSet}) => {
     const facebookCredential = auth.FacebookAuthProvider.credential(
       data.accessToken,
     );
-
-    auth().signInWithCredential(facebookCredential)
+    auth().signInWithCredential(facebookCredential);
   };
-
-  // const onAuthStateChange = (userCred) => {
-  //   if (userCred) {
-  //     userActionSet(userCred);
-  //   } else {
-  //     userActionSet(null);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   const subscriber = auth().onAuthStateChanged(onAuthStateChange);
-  //   return subscriber; // unsubscribe on unmount
-  // }, []);
 
   return (
     <>
