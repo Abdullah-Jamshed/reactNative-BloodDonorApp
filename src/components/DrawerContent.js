@@ -52,7 +52,6 @@ const DrawerContent = ({userActionSet, user}) => {
                   style={styles.drawerOptionIcon}
                 />
                 <Text>Profile</Text>
-                <Text>Profile</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.drawerOption} activeOpacity={0.1}>
                 <MaterialCommunityIcons
