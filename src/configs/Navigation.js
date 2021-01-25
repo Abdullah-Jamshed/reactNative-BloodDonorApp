@@ -9,7 +9,7 @@ import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
 
 import {connect} from 'react-redux';
-import {userAction} from '../store/actions/homeActions';
+import {userAction, loaderAction} from '../store/actions/homeActions';
 // Screens
 import LoginScreen from '../screens/LoginScreen';
 import HomeScreen from '../screens/HomeScreen';
@@ -28,12 +28,13 @@ const HomeStack = () => {
   );
 };
 
-const Navigation = ({user, userActionSet}) => {
+const Navigation = ({user, userActionSet,loaderActionSet}) => {
   // const [user, setUser] = useState(null);
 
   const onAuthStateChange = async (userCred) => {
     if (userCred) {
       userActionSet(userCred);
+      loaderActionSet(false);
     } else {
       userActionSet(null);
     }
@@ -69,6 +70,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     userActionSet: (user) => dispatch(userAction(user)),
+    loaderActionSet: (user) => dispatch(loaderAction(user)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

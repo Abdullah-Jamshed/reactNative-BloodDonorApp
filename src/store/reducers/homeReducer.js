@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   name: '',
   email: '',
   password: '',
+  loader: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -30,6 +31,12 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         password: action.payload.password,
+      };
+    case 'LOADER':
+      // console.log('payload User ==>', action.payload.user);
+      return {
+        ...state,
+        loader: action.payload.flag,
       };
     case 'USER':
       // console.log('payload User ==>', action.payload.user);

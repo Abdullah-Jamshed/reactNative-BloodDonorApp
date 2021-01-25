@@ -28,6 +28,11 @@ const initializationAction = (flag) => {
     dispatch({type: 'INITIALIZATION', payload: {flag}});
   };
 };
+const loaderAction = (flag) => {
+  return (dispatch) => {
+    dispatch({type: 'LOADER', payload: {flag}});
+  };
+};
 
 export {
   userAction,
@@ -35,4 +40,5 @@ export {
   nameAction,
   emailAction,
   passwordAction,
+  loaderAction
 };

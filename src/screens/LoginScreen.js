@@ -8,19 +8,26 @@ import {
   Dimensions,
   TouchableOpacity,
   Keyboard,
+  ActivityIndicator,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {AccessToken, LoginManager} from 'react-native-fbsdk';
 
 import {connect} from 'react-redux';
-import {userAction} from '../store/actions/homeActions';
+import {userAction, loaderAction} from '../store/actions/homeActions';
 
 import HomeScreen from './HomeScreen';
 import SignupScreen from './SignupScreen';
 
 const {width, height} = Dimensions.get('window');
 
-const LoginScreen = ({navigation, user, userActionSet}) => {
+const LoginScreen = ({
+  navigation,
+  user,
+  userActionSet,
+  loader,
+  loaderActionSet,
+}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -38,13 +45,14 @@ const LoginScreen = ({navigation, user, userActionSet}) => {
       });
   };
   const facebookLogin = async () => {
+    loaderActionSet(true);
     const result = await LoginManager.logInWithPermissions([
       'public_profile',
       'email',
     ]);
 
     if (result.isCancelled) {
-      setLoading(false);
+      loaderActionSet(false);
     }
 
     const data = await AccessToken.getCurrentAccessToken();
@@ -104,10 +112,13 @@ const LoginScreen = ({navigation, user, userActionSet}) => {
               <Text style={styles.buttonText}>Sign Up</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles.button}
+              style={[styles.button, {flexDirection: 'row'}]}
               activeOpacity={0.9}
               onPress={facebookLogin}>
               <Text style={styles.buttonText}>Login With Facebook</Text>
+              {loader && (
+                <ActivityIndicator style={{marginLeft: 5}} color={'#fff'} />
+              )}
             </TouchableOpacity>
           </View>
         </View>
@@ -171,12 +182,14 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
   return {
     user: state.homeReducer.user,
+    loader: state.homeReducer.loader,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     userActionSet: (user) => dispatch(userAction(user)),
+    loaderActionSet: (user) => dispatch(loaderAction(user)),
   };
 };
 
