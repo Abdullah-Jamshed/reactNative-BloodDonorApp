@@ -17,10 +17,15 @@ import {color} from 'react-native-reanimated';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {LoginManager} from 'react-native-fbsdk';
 
 const DrawerContent = ({userActionSet, user}) => {
+  // const SignOut = () => {
+  //   auth().signOut();
+  // };
   const SignOut = () => {
     auth().signOut();
+    LoginManager.logOut();
   };
 
   return (
@@ -45,7 +50,7 @@ const DrawerContent = ({userActionSet, user}) => {
               <Text style={styles.profileName}>{user.displayName}</Text>
             </View>
             <View style={styles.drawerOptions}>
-              <TouchableOpacity style={styles.drawerOption} activeOpacity={0.1}>
+              <TouchableOpacity style={styles.drawerOption} activeOpacity={0.7}>
                 <Ionicons
                   name="person"
                   size={25}
@@ -53,7 +58,7 @@ const DrawerContent = ({userActionSet, user}) => {
                 />
                 <Text>Profile</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.drawerOption} activeOpacity={0.1}>
+              <TouchableOpacity style={styles.drawerOption} activeOpacity={0.7}>
                 <MaterialCommunityIcons
                   name="blood-bag"
                   size={25}
@@ -102,7 +107,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 10,
     paddingHorizontal: 20,
-    borderBottomWidth: 1,
+    borderBottomWidth: 2,
     borderBottomColor: '#f5f5f5',
   },
   profileImage1: {
@@ -128,7 +133,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     // padding: 5,
     paddingVertical: 10,
-    borderBottomWidth: 1,
+    borderBottomWidth: 2,
     borderBottomColor: '#f5f5f5',
   },
   drawerOptionIcon: {

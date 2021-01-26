@@ -46,10 +46,14 @@ const LoginScreen = ({
   };
   const facebookLogin = async () => {
     loaderActionSet(true);
+    // try {
+    console.log('data ==>> 1');
     const result = await LoginManager.logInWithPermissions([
       'public_profile',
       'email',
     ]);
+
+    console.log('data ==>>', result);
 
     if (result.isCancelled) {
       loaderActionSet(false);
@@ -60,11 +64,16 @@ const LoginScreen = ({
     if (!data) {
       throw 'Something went wrong obtaining access token';
     }
-
     const facebookCredential = auth.FacebookAuthProvider.credential(
       data.accessToken,
     );
-    auth().signInWithCredential(facebookCredential);
+
+    // Sign-in the user with the credential
+    return auth().signInWithCredential(facebookCredential);
+    // } catch (err) {
+    //   loaderActionSet(false);
+    //   console.log(err);
+    // }
   };
 
   return (

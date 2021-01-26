@@ -5,6 +5,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
+import {LoginManager} from 'react-native-fbsdk';
+
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
 
@@ -28,7 +30,7 @@ const HomeStack = () => {
   );
 };
 
-const Navigation = ({user, userActionSet,loaderActionSet}) => {
+const Navigation = ({user, userActionSet, loaderActionSet}) => {
   // const [user, setUser] = useState(null);
 
   const onAuthStateChange = async (userCred) => {
@@ -37,6 +39,7 @@ const Navigation = ({user, userActionSet,loaderActionSet}) => {
       loaderActionSet(false);
     } else {
       userActionSet(null);
+      LoginManager.logOut()
     }
   };
 
