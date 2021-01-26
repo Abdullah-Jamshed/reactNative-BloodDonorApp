@@ -16,7 +16,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const {width, height} = Dimensions.get('window');
 
-const HomeScreen = ({user}) => {
+const HomeScreen = ({user, navigation}) => {
   const createUserNode = async () => {
     if (user) {
       const {
@@ -45,7 +45,10 @@ const HomeScreen = ({user}) => {
     <>
       {user.displayName && (
         <View style={styles.container}>
-          <TouchableOpacity style={styles.header}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={styles.header}
+            onPress={() => navigation.openDrawer()}>
             <Ionicons name="menu" size={30} color={'#fb3d4a'} />
           </TouchableOpacity>
           <View style={styles.middle}>
