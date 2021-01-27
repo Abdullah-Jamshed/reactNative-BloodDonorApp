@@ -19,7 +19,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {LoginManager} from 'react-native-fbsdk';
 
-const DrawerContent = ({userActionSet, user}) => {
+const DrawerContent = ({userActionSet, user, navigation}) => {
   // const SignOut = () => {
   //   auth().signOut();
   // };
@@ -58,7 +58,10 @@ const DrawerContent = ({userActionSet, user}) => {
                 />
                 <Text>Profile</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.drawerOption} activeOpacity={0.7}>
+              <TouchableOpacity
+                style={styles.drawerOption}
+                activeOpacity={0.7}
+                onPress={() => navigation.navigate('BecomeDonor')}>
                 <MaterialCommunityIcons
                   name="blood-bag"
                   size={25}

@@ -16,6 +16,8 @@ import {userAction, loaderAction} from '../store/actions/homeActions';
 import LoginScreen from '../screens/LoginScreen';
 import HomeScreen from '../screens/HomeScreen';
 import SignupScreen from '../screens/SignupScreen';
+import BecomeDonor from '../screens/BecomeDonor';
+import About from '../screens/About';
 
 import DrawerContent from '../components/DrawerContent';
 
@@ -29,6 +31,21 @@ const HomeStack = () => {
     </Stack.Navigator>
   );
 };
+const BecomeDonorStack = () => {
+  return (
+    <Stack.Navigator headerMode={false}>
+      <Stack.Screen name="BecomeDonorS" component={BecomeDonor} />
+    </Stack.Navigator>
+  );
+};
+
+const AboutStack = () => {
+  return (
+    <Stack.Navigator headerMode={false}>
+      <Stack.Screen name="AboutS" component={About} />
+    </Stack.Navigator>
+  );
+};
 
 const Navigation = ({user, userActionSet, loaderActionSet}) => {
   // const [user, setUser] = useState(null);
@@ -39,7 +56,7 @@ const Navigation = ({user, userActionSet, loaderActionSet}) => {
       loaderActionSet(false);
     } else {
       userActionSet(null);
-      LoginManager.logOut()
+      LoginManager.logOut();
     }
   };
 
@@ -59,6 +76,8 @@ const Navigation = ({user, userActionSet, loaderActionSet}) => {
         <Drawer.Navigator
           drawerContent={(props) => <DrawerContent {...props} />}>
           <Drawer.Screen name="Home" component={HomeStack} />
+          <Drawer.Screen name="BecomeDonor" component={BecomeDonorStack} />
+          <Drawer.Screen name="About" component={AboutStack} />
         </Drawer.Navigator>
       )}
     </NavigationContainer>

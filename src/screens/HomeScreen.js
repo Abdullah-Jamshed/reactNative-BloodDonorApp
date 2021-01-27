@@ -14,6 +14,9 @@ import database from '@react-native-firebase/database';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+import BottomBar from '../components/BottomBar';
+import Header from '../components/Header';
+
 const {width, height} = Dimensions.get('window');
 
 const HomeScreen = ({user, navigation}) => {
@@ -45,12 +48,14 @@ const HomeScreen = ({user, navigation}) => {
     <>
       {user.displayName && (
         <View style={styles.container}>
-          <TouchableOpacity
+          <Header navigation={navigation} />
+          <BottomBar navigation={navigation} screen="home" />
+          {/* <TouchableOpacity
             activeOpacity={0.8}
             style={styles.header}
             onPress={() => navigation.openDrawer()}>
             <Ionicons name="menu" size={30} color={'#fb3d4a'} />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <View style={styles.middle}>
             <Image
               source={require('../assests/findDonorBg.png')}
