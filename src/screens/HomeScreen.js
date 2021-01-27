@@ -6,6 +6,7 @@ import {
   Dimensions,
   TouchableOpacity,
   StyleSheet,
+  Linking,
 } from 'react-native';
 
 import {connect} from 'react-redux';
@@ -61,7 +62,12 @@ const HomeScreen = ({user, navigation}) => {
               source={require('../assests/findDonorBg.png')}
               style={styles.homeBg}
             />
-            <TouchableOpacity style={styles.findDonorButton}>
+            <TouchableOpacity
+              style={styles.findDonorButton}
+              // onPress={() => {
+              //   Linking.openURL(`tel:03452057791`);
+              // }}
+            >
               <Text style={styles.findDonorButtonText}>Find A Donor</Text>
             </TouchableOpacity>
           </View>
