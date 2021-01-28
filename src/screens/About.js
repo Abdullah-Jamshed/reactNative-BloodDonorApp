@@ -9,6 +9,7 @@ const About = ({navigation, screen}) => {
       <BottomBar navigation={navigation} screen="about" />
       <Text>About Us</Text>
       <Text>About Us</Text>
+      <Text>About Us</Text>
     </View>
   );
 };
