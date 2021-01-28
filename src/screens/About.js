@@ -11,8 +11,6 @@ const About = ({navigation, screen}) => {
       <Text>About Us</Text>
       <Text>About Us</Text>
       <Text>About Us</Text>
-      <Text>About Us</Text>
-      <Text>About Us</Text>
     </View>
   );
 };
