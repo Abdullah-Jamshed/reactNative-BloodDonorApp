@@ -8,7 +8,6 @@ const About = ({navigation, screen}) => {
     <View style={styles.container}>
       <BottomBar navigation={navigation} screen="about" />
       <Text>About Us</Text>
-      <Text>About Us</Text>
     </View>
   );
 };
