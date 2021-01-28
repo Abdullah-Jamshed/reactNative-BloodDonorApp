@@ -4,6 +4,7 @@ import {View, Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import {LoginManager} from 'react-native-fbsdk';
 
@@ -21,8 +22,12 @@ import About from '../screens/About';
 
 import DrawerContent from '../components/DrawerContent';
 
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
 
 const HomeStack = () => {
   return (

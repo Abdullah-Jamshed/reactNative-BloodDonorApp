@@ -1,91 +1,120 @@
 import React, {useState} from 'react';
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 
-const BloodGroups = () => {
-  const [active, setActive] = useState('');
+import {connect} from 'react-redux';
+import {bloodGroupAction} from '../store/actions/becomeDonorAction';
+
+const BloodGroups = ({bloodGroup, bloodGroupActionSet}) => {
+  // const [active, bloodGroupActionSet] = useState('');
 
   return (
-    <View style={styles.bloodGBContainer}>
-      <TouchableOpacity
-        activeOpacity={0.9}
-        onPress={() => setActive('A+')}
-        style={
-          active === 'A+' ? styles.activeBloodGroup : styles.bloodGroupButton
-        }>
-        <Text style={active === 'A+' ? styles.bgTextActive : styles.bgText}>
-          A+
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        activeOpacity={0.9}
-        onPress={() => setActive('A-')}
-        style={
-          active === 'A-' ? styles.activeBloodGroup : styles.bloodGroupButton
-        }>
-        <Text style={active === 'A-' ? styles.bgTextActive : styles.bgText}>
-          A-
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        activeOpacity={0.9}
-        onPress={() => setActive('B+')}
-        style={
-          active === 'B+' ? styles.activeBloodGroup : styles.bloodGroupButton
-        }>
-        <Text style={active === 'B+' ? styles.bgTextActive : styles.bgText}>
-          B+
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        activeOpacity={0.9}
-        onPress={() => setActive('B-')}
-        style={
-          active === 'B-' ? styles.activeBloodGroup : styles.bloodGroupButton
-        }>
-        <Text style={active === 'B-' ? styles.bgTextActive : styles.bgText}>
-          B-
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        activeOpacity={0.9}
-        onPress={() => setActive('AB+')}
-        style={
-          active === 'AB+' ? styles.activeBloodGroup : styles.bloodGroupButton
-        }>
-        <Text style={active === 'AB+' ? styles.bgTextActive : styles.bgText}>
-          AB+
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        activeOpacity={0.9}
-        onPress={() => setActive('AB-')}
-        style={
-          active === 'AB-' ? styles.activeBloodGroup : styles.bloodGroupButton
-        }>
-        <Text style={active === 'AB-' ? styles.bgTextActive : styles.bgText}>
-          AB-
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        activeOpacity={0.9}
-        onPress={() => setActive('O-')}
-        style={
-          active === 'O-' ? styles.activeBloodGroup : styles.bloodGroupButton
-        }>
-        <Text style={active === 'O-' ? styles.bgTextActive : styles.bgText}>
-          O-
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        activeOpacity={0.9}
-        onPress={() => setActive('O+')}
-        style={
-          active === 'O+' ? styles.activeBloodGroup : styles.bloodGroupButton
-        }>
-        <Text style={active === 'O+' ? styles.bgTextActive : styles.bgText}>
-          O+
-        </Text>
-      </TouchableOpacity>
+    <View style={styles.container}>
+      <View style={styles.bloodGBContainer}>
+        <TouchableOpacity
+          activeOpacity={0.9}
+          onPress={() => bloodGroupActionSet('A+')}
+          style={
+            bloodGroup === 'A+'
+              ? styles.activeBloodGroup
+              : styles.bloodGroupButton
+          }>
+          <Text
+            style={bloodGroup === 'A+' ? styles.bgTextActive : styles.bgText}>
+            A+
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.9}
+          onPress={() => bloodGroupActionSet('A-')}
+          style={
+            bloodGroup === 'A-'
+              ? styles.activeBloodGroup
+              : styles.bloodGroupButton
+          }>
+          <Text
+            style={bloodGroup === 'A-' ? styles.bgTextActive : styles.bgText}>
+            A-
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.9}
+          onPress={() => bloodGroupActionSet('B+')}
+          style={
+            bloodGroup === 'B+'
+              ? styles.activeBloodGroup
+              : styles.bloodGroupButton
+          }>
+          <Text
+            style={bloodGroup === 'B+' ? styles.bgTextActive : styles.bgText}>
+            B+
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.9}
+          onPress={() => bloodGroupActionSet('B-')}
+          style={
+            bloodGroup === 'B-'
+              ? styles.activeBloodGroup
+              : styles.bloodGroupButton
+          }>
+          <Text
+            style={bloodGroup === 'B-' ? styles.bgTextActive : styles.bgText}>
+            B-
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.9}
+          onPress={() => bloodGroupActionSet('AB+')}
+          style={
+            bloodGroup === 'AB+'
+              ? styles.activeBloodGroup
+              : styles.bloodGroupButton
+          }>
+          <Text
+            style={bloodGroup === 'AB+' ? styles.bgTextActive : styles.bgText}>
+            AB+
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.9}
+          onPress={() => bloodGroupActionSet('AB-')}
+          style={
+            bloodGroup === 'AB-'
+              ? styles.activeBloodGroup
+              : styles.bloodGroupButton
+          }>
+          <Text
+            style={bloodGroup === 'AB-' ? styles.bgTextActive : styles.bgText}>
+            AB-
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.9}
+          onPress={() => bloodGroupActionSet('O-')}
+          style={
+            bloodGroup === 'O-'
+              ? styles.activeBloodGroup
+              : styles.bloodGroupButton
+          }>
+          <Text
+            style={bloodGroup === 'O-' ? styles.bgTextActive : styles.bgText}>
+            O-
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.9}
+          onPress={() => bloodGroupActionSet('O+')}
+          style={
+            bloodGroup === 'O+'
+              ? styles.activeBloodGroup
+              : styles.bloodGroupButton
+          }>
+          <Text
+            style={bloodGroup === 'O+' ? styles.bgTextActive : styles.bgText}>
+            O+
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -103,8 +132,10 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     backgroundColor: '#fb3d4a',
     width: 75,
-    borderWidth: 1,
-    borderColor: '#f5f5f5',
+    // borderWidth: 1,
+    // borderColor: '#f5f5f5',
+    borderColor: '#fb3d4a',
+    borderWidth: 0.5,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 5,
@@ -115,8 +146,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
     width: 75,
-    borderWidth: 1,
-    borderColor: '#e8e8e8',
+    // borderWidth: 1,
+    // borderColor: '#e8e8e8',
+    borderColor: '#fb3d4a',
+    borderWidth: 0.5,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 5,
@@ -133,4 +166,16 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BloodGroups;
+const mapStateToProps = (state) => {
+  return {
+    bloodGroup: state.becomeDonorReducer.bloodGroup,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    bloodGroupActionSet: (group) => dispatch(bloodGroupAction(group)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(BloodGroups);
