@@ -18,6 +18,7 @@ import {color} from 'react-native-reanimated';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {LoginManager} from 'react-native-fbsdk';
 
 const DrawerContent = ({userActionSet, user, navigation, successActionSet}) => {
@@ -80,6 +81,11 @@ const DrawerContent = ({userActionSet, user, navigation, successActionSet}) => {
               onPress={SignOut}
               activeOpacity={0.9}
               style={styles.signOutButton}>
+              <MaterialCommunityIcons
+                name="logout"
+                size={25}
+                style={[styles.drawerOptionIcon, {color: '#ffff'}]}
+              />
               <Text style={styles.signOutButtonText}>Sign Out</Text>
             </TouchableOpacity>
           </View>
@@ -98,7 +104,8 @@ const styles = StyleSheet.create({
   upper: {},
   lower: {},
   signOutButton: {
-    justifyContent: 'center',
+    flexDirection: 'row',
+    // justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
     paddingVertical: 10,
