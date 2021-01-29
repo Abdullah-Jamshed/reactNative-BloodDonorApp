@@ -8,6 +8,7 @@ import {
   Keyboard,
   TextInput,
   ActivityIndicator,
+  Image,
 } from 'react-native';
 
 import database from '@react-native-firebase/database';
@@ -272,11 +273,16 @@ const BecomeDonor = ({
         </View>
       ) : (
         <View style={styles.loadingCont}>
-          <FontAwesome5
+          {/* <FontAwesome5
             name="hand-holding-heart"
             color={'#fb3d4a'}
             size={70}
             style={{marginVertical: 10}}
+          /> */}
+
+          <Image
+            source={require('../assests/handHeart.png')}
+            style={{width: 100, height: 100, marginBottom: 10}}
           />
           <Text style={styles.registeredText}>
             Your Already Registered as a Donor
@@ -402,6 +408,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: '#000',
+    marginVertical: 5,
   },
   successContainer: {
     flex: 1,
