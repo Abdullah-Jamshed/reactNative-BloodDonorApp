@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     width: 75,
     // borderWidth: 1,
     // borderColor: '#e8e8e8',
-    borderColor: '#fb3d4a',
+    borderColor: '#b3b3b3',
     borderWidth: 0.5,
     justifyContent: 'center',
     alignItems: 'center',

@@ -51,8 +51,29 @@ const BecomeDonor = ({
   const [formVisible, setFormVisible] = useState(false);
   const [loader1, setLoader1] = useState(true);
   const [loader2, setLoader2] = useState(false);
+  const [loader3, setLoader3] = useState(false);
+  const [initialization, setInitialization] = useState(false);
+
+  const donorCheck = async () => {
+    database()
+      .ref('/')
+      .child(`/donors/${user.uid}`)
+      .on('value', (data) => {
+        if (initialization) {
+          setLoader3(false);
+        }
+        setLoader1(false);
+        if (data.val() == null) {
+          setFormVisible(true);
+        } else {
+          setFormVisible(false);
+        }
+      });
+    setInitialization(true);
+  };
 
   const beADonor = () => {
+    setLoader3(true);
     setLoader2(true);
     database()
       .ref('/')
@@ -72,19 +93,10 @@ const BecomeDonor = ({
       });
   };
 
-  const donorCheck = async () => {
-    const respose = await database()
-      .ref('/')
-      .child(`/donors/${user.uid}`)
-      .on('value', (data) => {
-        setLoader1(false);
-        if (data.val() == null) {
-          // setFormVisible(!respose.exists());
-          setFormVisible(true);
-        } else {
-          setFormVisible(false);
-        }
-      });
+  const deleteDonor = () => {
+    if (!loader1) {
+      database().ref('/').child(`/donors/${user.uid}`).remove();
+    }
   };
 
   useEffect(() => {
@@ -117,23 +129,12 @@ const BecomeDonor = ({
 
   return (
     <View
-      style={[styles.container, {paddingBottom: !isKeyboardVisible ? 75 : 10}]}>
+      style={[styles.container, {paddingBottom: !isKeyboardVisible ? 65 : 10}]}>
       <Header navigation={navigation} />
       {!isKeyboardVisible && (
         <BottomBar navigation={navigation} screen="becomdonor" />
       )}
-      {success ? (
-        <View style={styles.successContainer}>
-          <Ionicons
-            name="md-shield-checkmark-outline"
-            size={60}
-            color={'#fb3d4a'}
-          />
-          <Text style={styles.successText}>
-            Successfully Registered as Donor
-          </Text>
-        </View>
-      ) : loader1 ? (
+      {loader1 ? (
         <View style={styles.loadingCont}>
           <ActivityIndicator color={'#fb3d4a'} size={'large'} />
         </View>
@@ -254,6 +255,21 @@ const BecomeDonor = ({
             )}
           </TouchableOpacity>
         </ScrollView>
+      ) : loader3 ? (
+        <View style={styles.loadingCont}>
+          <ActivityIndicator color={'#fb3d4a'} size={'large'} />
+        </View>
+      ) : success ? (
+        <View style={styles.successContainer}>
+          <Ionicons
+            name="md-shield-checkmark-outline"
+            size={60}
+            color={'#fb3d4a'}
+          />
+          <Text style={styles.successText}>
+            Successfully Registered as Donor
+          </Text>
+        </View>
       ) : (
         <View style={styles.loadingCont}>
           <FontAwesome5
@@ -265,6 +281,9 @@ const BecomeDonor = ({
           <Text style={styles.registeredText}>
             Your Already Registered as a Donor
           </Text>
+          <TouchableOpacity style={styles.button} onPress={deleteDonor}>
+            <Text style={styles.buttonText}>End Donation</Text>
+          </TouchableOpacity>
         </View>
       )}
     </View>
@@ -289,8 +308,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     backgroundColor: '#fb3d4a',
     width: 100,
-    // borderWidth: 1,
-    // borderColor: '#f5f5f5',
     borderColor: '#fb3d4a',
     borderWidth: 0.5,
     justifyContent: 'center',
@@ -305,7 +322,7 @@ const styles = StyleSheet.create({
     width: 100,
     // borderWidth: 1,
     // borderColor: '#e8e8e8',
-    borderColor: '#fb3d4a',
+    borderColor: '#b3b3b3',
     borderWidth: 0.5,
     justifyContent: 'center',
     alignItems: 'center',
@@ -335,7 +352,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 10,
     // borderColor: '#e8e8e8',
-    borderColor: '#fb3d4a',
+    borderColor: '#b3b3b3',
     borderWidth: 0.5,
     fontSize: 14,
     borderRadius: 5,
