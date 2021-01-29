@@ -31,6 +31,11 @@ const contactAction = (contact) => {
     dispatch({type: 'CONTACT', payload: {contact}});
   };
 };
+const successAction = (success) => {
+  return (dispatch) => {
+    dispatch({type: 'SUCCESS', payload: {success}});
+  };
+};
 
 export {
   bloodGroupAction,
@@ -39,4 +44,5 @@ export {
   ageAction,
   contactAction,
   cityAction,
+  successAction,
 };

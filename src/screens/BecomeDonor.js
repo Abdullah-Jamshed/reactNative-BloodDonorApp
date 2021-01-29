@@ -19,6 +19,7 @@ import {
   ageAction,
   cityAction,
   contactAction,
+  successAction,
 } from '../store/actions/becomeDonorAction';
 
 import BottomBar from '../components/BottomBar';
@@ -26,6 +27,7 @@ import Header from '../components/Header';
 import BloodGroups from '../components/BloodGroups';
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const BecomeDonor = ({
   bloodGroup,
@@ -37,11 +39,13 @@ const BecomeDonor = ({
   gender,
   city,
   contact,
+  success,
   nameActionSet,
   ageActionSet,
   cityActionSet,
   contactActionSet,
   genderActionSet,
+  successActionSet,
 }) => {
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const [formVisible, setFormVisible] = useState(false);
@@ -64,6 +68,7 @@ const BecomeDonor = ({
       })
       .then(() => {
         setLoader2(false);
+        successActionSet(true);
       });
   };
 
@@ -71,9 +76,15 @@ const BecomeDonor = ({
     const respose = await database()
       .ref('/')
       .child(`/donors/${user.uid}`)
-      .once('value');
-    setLoader1(false);
-    setFormVisible(!respose.exists());
+      .on('value', (data) => {
+        setLoader1(false);
+        if (data.val() == null) {
+          // setFormVisible(!respose.exists());
+          setFormVisible(true);
+        } else {
+          setFormVisible(false);
+        }
+      });
   };
 
   useEffect(() => {
@@ -111,7 +122,18 @@ const BecomeDonor = ({
       {!isKeyboardVisible && (
         <BottomBar navigation={navigation} screen="becomdonor" />
       )}
-      {loader1 ? (
+      {success ? (
+        <View style={styles.successContainer}>
+          <Ionicons
+            name="md-shield-checkmark-outline"
+            size={60}
+            color={'#fb3d4a'}
+          />
+          <Text style={styles.successText}>
+            Successfully Registered as Donor
+          </Text>
+        </View>
+      ) : loader1 ? (
         <View style={styles.loadingCont}>
           <ActivityIndicator color={'#fb3d4a'} size={'large'} />
         </View>
@@ -362,7 +384,17 @@ const styles = StyleSheet.create({
   registeredText: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#fb3d4a',
+    color: '#000',
+  },
+  successContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  successText: {
+    fontSize: 17,
+    fontWeight: 'bold',
+    color: '#000',
   },
 });
 
@@ -375,6 +407,7 @@ const mapStateToProps = (state) => {
     gender: state.becomeDonorReducer.gender,
     city: state.becomeDonorReducer.city,
     contact: state.becomeDonorReducer.contact,
+    success: state.becomeDonorReducer.success,
   };
 };
 
@@ -386,6 +419,7 @@ const mapDispatchToProps = (dispatch) => {
     ageActionSet: (age) => dispatch(ageAction(age)),
     cityActionSet: (city) => dispatch(cityAction(city)),
     contactActionSet: (contact) => dispatch(contactAction(contact)),
+    successActionSet: (success) => dispatch(successAction(success)),
   };
 };
 

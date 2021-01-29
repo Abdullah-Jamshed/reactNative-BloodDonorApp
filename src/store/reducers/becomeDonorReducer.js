@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   gender: '',
   city: '',
   contact: '',
+  success: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -38,6 +39,11 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         contact: action.payload.contact,
+      };
+    case 'SUCCESS':
+      return {
+        ...state,
+        success: action.payload.success,
       };
 
     default:

@@ -11,6 +11,7 @@ import {
 
 import {connect} from 'react-redux';
 import {userAction} from '../store/actions/homeActions';
+import {successAction} from '../store/actions/becomeDonorAction';
 
 import auth from '@react-native-firebase/auth';
 import {color} from 'react-native-reanimated';
@@ -19,7 +20,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {LoginManager} from 'react-native-fbsdk';
 
-const DrawerContent = ({userActionSet, user, navigation}) => {
+const DrawerContent = ({userActionSet, user, navigation, successActionSet}) => {
   // const SignOut = () => {
   //   auth().signOut();
   // };
@@ -61,7 +62,10 @@ const DrawerContent = ({userActionSet, user, navigation}) => {
               <TouchableOpacity
                 style={styles.drawerOption}
                 activeOpacity={0.7}
-                onPress={() => navigation.navigate('BecomeDonor')}>
+                onPress={() => {
+                  successActionSet(false);
+                  navigation.navigate('BecomeDonor');
+                }}>
                 <MaterialCommunityIcons
                   name="blood-bag"
                   size={25}
@@ -155,6 +159,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     userActionSet: (user) => dispatch(userAction(user)),
+    successActionSet: (success) => dispatch(successAction(success)),
   };
 };
 

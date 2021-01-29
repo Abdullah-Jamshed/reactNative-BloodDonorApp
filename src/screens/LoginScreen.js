@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Keyboard,
   ActivityIndicator,
+  ImageBackground,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {AccessToken, LoginManager} from 'react-native-fbsdk';
@@ -46,7 +47,6 @@ const LoginScreen = ({
   };
   const facebookLogin = async () => {
     loaderActionSet(true);
-    // try {
     console.log('data ==>> 1');
     const result = await LoginManager.logInWithPermissions([
       'public_profile',
@@ -57,28 +57,37 @@ const LoginScreen = ({
 
     if (result.isCancelled) {
       loaderActionSet(false);
+    } else {
+      const data = await AccessToken.getCurrentAccessToken();
+
+      if (!data) {
+        loaderActionSet(false);
+        // throw 'Something went wrong obtaining access token';
+      }
+      const facebookCredential = auth.FacebookAuthProvider.credential(
+        data.accessToken,
+      );
+
+      // Sign-in the user with the credential
+      return auth().signInWithCredential(facebookCredential);
     }
-
-    const data = await AccessToken.getCurrentAccessToken();
-
-    if (!data) {
-      throw 'Something went wrong obtaining access token';
-    }
-    const facebookCredential = auth.FacebookAuthProvider.credential(
-      data.accessToken,
-    );
-
-    // Sign-in the user with the credential
-    return auth().signInWithCredential(facebookCredential);
-    // } catch (err) {
-    //   loaderActionSet(false);
-    //   console.log(err);
-    // }
   };
 
   return (
     <>
       <View style={styles.container}>
+        <ImageBackground
+          source={require('../assests/wave.png')}
+          style={{
+            width: '100%',
+            height: 240,
+            position: 'absolute',
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            justifyContent: 'center',
+          }}></ImageBackground>
         <View style={styles.circle}>
           <Image
             source={require('../assests/bloodDrop.png')}
@@ -131,6 +140,7 @@ const LoginScreen = ({
             </TouchableOpacity>
           </View>
         </View>
+        {/* </ImageBackground> */}
       </View>
     </>
   );
@@ -143,6 +153,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fff',
     paddingTop: 100,
+    // backgroundColor:"green"
     // paddingVertical:100,
   },
   circle: {
@@ -157,8 +168,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   inputFeild: {
-    borderWidth: 1,
-    borderColor: '#f5f5f5',
+    borderWidth: 0.5,
+    borderColor: '#b3b3b3',
     width: width / 1.4,
     marginBottom: 10,
     padding: 5,
