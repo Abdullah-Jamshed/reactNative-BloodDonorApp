@@ -26,8 +26,8 @@ import {
 import BottomBar from '../components/BottomBar';
 import Header from '../components/Header';
 import BloodGroups from '../components/BloodGroups';
+import BloodDonorFields from '../components/BloodDonorFields';
 
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const BecomeDonor = ({
@@ -41,11 +41,7 @@ const BecomeDonor = ({
   city,
   contact,
   success,
-  nameActionSet,
-  ageActionSet,
-  cityActionSet,
-  contactActionSet,
-  genderActionSet,
+
   successActionSet,
 }) => {
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
@@ -53,16 +49,13 @@ const BecomeDonor = ({
   const [loader1, setLoader1] = useState(true);
   const [loader2, setLoader2] = useState(false);
   const [loader3, setLoader3] = useState(false);
-  const [initialization, setInitialization] = useState(false);
+  // const [initialization, setInitialization] = useState(false);
 
   const donorCheck = async () => {
     database()
       .ref('/')
       .child(`/donors/${user.uid}`)
       .on('value', (data) => {
-        if (initialization) {
-          setLoader3(false);
-        }
         setLoader1(false);
         if (data.val() == null) {
           setFormVisible(true);
@@ -70,7 +63,6 @@ const BecomeDonor = ({
           setFormVisible(false);
         }
       });
-    setInitialization(true);
   };
 
   const beADonor = () => {
@@ -91,6 +83,7 @@ const BecomeDonor = ({
       .then(() => {
         setLoader2(false);
         successActionSet(true);
+        setLoader3(false);
       });
   };
 
@@ -121,10 +114,6 @@ const BecomeDonor = ({
   }, []);
 
   useEffect(() => {
-    nameActionSet(user.displayName);
-  }, []);
-
-  useEffect(() => {
     donorCheck();
   }, []);
 
@@ -149,81 +138,7 @@ const BecomeDonor = ({
             <Text style={styles.heading}>Select Blood Group :</Text>
           </View>
           <BloodGroups />
-          <View style={styles.headingContainer}>
-            <Text style={styles.heading}>Name :</Text>
-          </View>
-          <View style={styles.inputFieldNameCont}>
-            <TextInput
-              style={styles.inputFieldName}
-              value={name}
-              editable={false}
-            />
-          </View>
-          <View style={styles.headingContainer}>
-            <Text style={styles.heading}>Age :</Text>
-          </View>
-          <View style={styles.inputFieldNameCont}>
-            <TextInput
-              style={styles.inputFieldName}
-              value={age}
-              onChangeText={(text) => ageActionSet(text)}
-            />
-            <Text style={styles.helpText}>Age must be minimum 18</Text>
-          </View>
-          <View style={styles.headingContainer}>
-            <Text style={styles.heading}>Gender :</Text>
-          </View>
-          <View style={styles.genderCont}>
-            <TouchableOpacity
-              activeOpacity={0.9}
-              onPress={() => genderActionSet('male')}
-              style={
-                gender === 'male'
-                  ? styles.activeBloodGroup
-                  : styles.bloodGroupButton
-              }>
-              <Text
-                style={gender === 'male' ? styles.bgTextActive : styles.bgText}>
-                Male
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={0.9}
-              onPress={() => genderActionSet('female')}
-              style={
-                gender === 'female'
-                  ? styles.activeBloodGroup
-                  : styles.bloodGroupButton
-              }>
-              <Text
-                style={
-                  gender === 'female' ? styles.bgTextActive : styles.bgText
-                }>
-                Female
-              </Text>
-            </TouchableOpacity>
-            {/* <TextInput style={styles.inputFieldName} /> */}
-          </View>
-          <View style={styles.headingContainer}>
-            <Text style={styles.heading}>City :</Text>
-          </View>
-          <View style={styles.inputFieldNameCont}>
-            <TextInput
-              style={styles.inputFieldName}
-              value={city}
-              onChangeText={(text) => cityActionSet(text)}
-            />
-          </View>
-          <View style={styles.headingContainer}>
-            <Text style={styles.heading}>Contact :</Text>
-          </View>
-          <View style={styles.inputFieldNameCont}>
-            <TextInput
-              style={styles.inputFieldName}
-              value={contact}
-              onChangeText={(text) => contactActionSet(text)}
-            />
-          </View>
+          <BloodDonorFields />
 
           <TouchableOpacity
             style={
@@ -273,13 +188,6 @@ const BecomeDonor = ({
         </View>
       ) : (
         <View style={styles.loadingCont}>
-          {/* <FontAwesome5
-            name="hand-holding-heart"
-            color={'#fb3d4a'}
-            size={70}
-            style={{marginVertical: 10}}
-          /> */}
-
           <Image
             source={require('../assests/handHeart.png')}
             style={{width: 100, height: 100, marginBottom: 10}}
@@ -302,40 +210,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     zIndex: 2,
   },
-  bloodGBContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    padding: 10,
-    alignSelf: 'center',
-    justifyContent: 'center',
-  },
-  activeBloodGroup: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    backgroundColor: '#fb3d4a',
-    width: 100,
-    borderColor: '#fb3d4a',
-    borderWidth: 0.5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 5,
-    marginTop: 5,
-    borderRadius: 5,
-  },
-  bloodGroupButton: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    width: 100,
-    // borderWidth: 1,
-    // borderColor: '#e8e8e8',
-    borderColor: '#b3b3b3',
-    borderWidth: 0.5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 5,
-    marginTop: 5,
-    borderRadius: 5,
-  },
+
   bgText: {
     color: '#fb3d4a',
     fontWeight: 'bold',
@@ -353,22 +228,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#fb3d4a',
     fontWeight: 'bold',
-  },
-  inputFieldName: {
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    // borderColor: '#e8e8e8',
-    borderColor: '#b3b3b3',
-    borderWidth: 0.5,
-    fontSize: 14,
-    borderRadius: 5,
-  },
-  inputFieldNameCont: {
-    width: '90%',
-    marginTop: 10,
-  },
-  genderCont: {
-    flexDirection: 'row',
   },
   button: {
     flexDirection: 'row',
@@ -437,12 +296,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // bloodGroupActionSet: (group) => dispatch(bloodGroupAction(group)),
-    genderActionSet: (gender) => dispatch(genderAction(gender)),
-    nameActionSet: (name) => dispatch(nameAction(name)),
-    ageActionSet: (age) => dispatch(ageAction(age)),
-    cityActionSet: (city) => dispatch(cityAction(city)),
-    contactActionSet: (contact) => dispatch(contactAction(contact)),
     successActionSet: (success) => dispatch(successAction(success)),
   };
 };
