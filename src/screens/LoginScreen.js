@@ -32,9 +32,6 @@ const LoginScreen = ({
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  // .then(() => {
-  //   console.log('user exits & signed in!');
-  // })
   const signIn = () => {
     auth()
       .signInWithEmailAndPassword(email, password)
@@ -47,13 +44,11 @@ const LoginScreen = ({
   };
   const facebookLogin = async () => {
     loaderActionSet(true);
-    console.log('data ==>> 1');
     const result = await LoginManager.logInWithPermissions([
       'public_profile',
       'email',
     ]);
 
-    console.log('data ==>>', result);
 
     if (result.isCancelled) {
       loaderActionSet(false);

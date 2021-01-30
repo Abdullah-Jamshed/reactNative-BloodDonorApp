@@ -15,9 +15,6 @@ const {width, height} = Dimensions.get('window');
 const BottomBar = ({navigation, screen}) => {
   const [active, setActive] = useState(screen);
 
-  //   useEffect(() => {
-  //     console.log(active);
-  //   }, [active]);
 
   return (
     <View style={styles.bottomBar}>

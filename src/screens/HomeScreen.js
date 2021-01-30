@@ -28,7 +28,6 @@ const HomeScreen = ({user, navigation}) => {
       } = await database().ref(`/`).child(`/users/${user.uid}`).once('value');
 
       if (!value) {
-        console.log('After data === NULL', user);
         database().ref('/').child(`users/${user.uid}`).set({
           uid: user.uid,
           displayName: user.displayName,
@@ -64,6 +63,9 @@ const HomeScreen = ({user, navigation}) => {
             />
             <TouchableOpacity
               style={styles.findDonorButton}
+              onPress={() => {
+                navigation.navigate('FindDonor');
+              }}
               // onPress={() => {
               //   Linking.openURL(`tel:03452057791`);
               // }}
