@@ -62,6 +62,7 @@ const HomeScreen = ({user, navigation}) => {
               style={styles.homeBg}
             />
             <TouchableOpacity
+              activeOpacity={0.8}
               style={styles.findDonorButton}
               onPress={() => {
                 navigation.navigate('FindDonor');
