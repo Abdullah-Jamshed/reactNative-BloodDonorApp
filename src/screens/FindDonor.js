@@ -4,8 +4,6 @@ import {
   Text,
   ScrollView,
   ActivityIndicator,
-  Button,
-  FlatList,
   Image,
   TextInput,
   StyleSheet,
@@ -22,7 +20,6 @@ import BottomBar from '../components/BottomBar';
 import BloodGroups from '../components/BloodGroups';
 
 import database from '@react-native-firebase/database';
-// import {TextInput} from 'react-native-gesture-handler';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -34,8 +31,10 @@ const FindDonor = ({navigation, bloodGroup, city, searchCitypActionSet}) => {
   const [Data, setData] = useState([]);
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const [dataStatus, setDataStatus] = useState({city: '', bloodGroup: ''});
+  const [initialization, setInitialization] = useState(false);
 
   const searchDonor = () => {
+    !initialization && setInitialization(true);
     setDataStatus({bloodGroup, city});
     setLoader(true);
     state && setstate(false);
@@ -174,6 +173,12 @@ const FindDonor = ({navigation, bloodGroup, city, searchCitypActionSet}) => {
       keyboardDidShowListener.remove();
     };
   }, []);
+
+  useEffect(() => {
+    if (initialization) {
+      searchDonor();
+    }
+  }, [bloodGroup]);
 
   return (
     <>

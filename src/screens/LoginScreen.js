@@ -31,15 +31,23 @@ const LoginScreen = ({
 }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [invalidEmail, setInvalidEmail] = useState(false);
+  const [userNotFound, setUserNotFound] = useState(false);
 
   const signIn = () => {
     auth()
       .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        setInvalidEmail(false);
+        setUserNotFound(false);
+      })
       .catch((error) => {
         if (error.code === 'auth/invalid-email') {
-          console.log('That email address is invalid!');
+          setInvalidEmail(true);
         }
-        console.error(error);
+        if (error.code === 'auth/user-not-found') {
+          setUserNotFound(true);
+        }
       });
   };
   const facebookLogin = async () => {
@@ -48,7 +56,6 @@ const LoginScreen = ({
       'public_profile',
       'email',
     ]);
-
 
     if (result.isCancelled) {
       loaderActionSet(false);
@@ -98,6 +105,19 @@ const LoginScreen = ({
             value={email}
             onChangeText={(text) => setEmail(text)}
           />
+          {invalidEmail && (
+            <Text style={{fontSize: 10, color: '#fb3d4a', marginBottom: 10}}>
+              invalid email
+            </Text>
+          )}
+          {userNotFound && (
+            <Text style={{fontSize: 10, color: '#fb3d4a', marginBottom: 10}}>
+              user not found
+            </Text>
+          )}
+          {/* {invalidEmail && (
+            <Text style={{fontSize: 10, color: '#fb3d4a'}}>invalid email</Text>
+          )} */}
           <TextInput
             style={styles.inputFeild}
             name="password"
