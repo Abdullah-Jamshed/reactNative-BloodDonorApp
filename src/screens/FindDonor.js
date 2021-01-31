@@ -50,11 +50,108 @@ const FindDonor = ({navigation, bloodGroup, city, searchCitypActionSet}) => {
           Object.keys(dataObj).map((key) => {
             arr.push(dataObj[key]);
           });
-          setData(arr);
+          switch (bloodGroup) {
+            case 'A+':
+              var matchBloodDonor = arr.filter((obj) => {
+                if (
+                  obj.bloodGroup == 'A+' ||
+                  obj.bloodGroup == 'A-' ||
+                  obj.bloodGroup == 'AB+' ||
+                  obj.bloodGroup == 'AB-'
+                ) {
+                  return obj;
+                }
+              });
+              setData(matchBloodDonor);
+              setLoader(false);
+              return;
+            case 'A-':
+              var matchBloodDonor = arr.filter((obj) => {
+                if (obj.bloodGroup == 'A-' || obj.bloodGroup == 'AB-') {
+                  return obj;
+                }
+              });
+              setData(matchBloodDonor);
+              setLoader(false);
+              return;
+            case 'B+':
+              var matchBloodDonor = arr.filter((obj) => {
+                if (
+                  obj.bloodGroup == 'B+' ||
+                  obj.bloodGroup == 'B-' ||
+                  obj.bloodGroup == 'AB+' ||
+                  obj.bloodGroup == 'AB-'
+                ) {
+                  return obj;
+                }
+              });
+              setData(matchBloodDonor);
+              setLoader(false);
+              return;
+            case 'B-':
+              var matchBloodDonor = arr.filter((obj) => {
+                if (obj.bloodGroup == 'B-' || obj.bloodGroup == 'AB-') {
+                  return obj;
+                }
+              });
+              setData(matchBloodDonor);
+              setLoader(false);
+              return;
+            case 'AB+':
+              var matchBloodDonor = arr.filter((obj) => {
+                if (obj.bloodGroup == 'AB+' || obj.bloodGroup == 'AB-') {
+                  return obj;
+                }
+              });
+              setData(matchBloodDonor);
+              setLoader(false);
+              return;
+            case 'AB-':
+              var matchBloodDonor = arr.filter((obj) => {
+                if (obj.bloodGroup == 'AB-') {
+                  return obj;
+                }
+              });
+              setData(matchBloodDonor);
+              setLoader(false);
+              return;
+            case 'O+':
+              var matchBloodDonor = arr.filter((obj) => {
+                if (
+                  obj.bloodGroup == 'A+' ||
+                  obj.bloodGroup == 'A-' ||
+                  obj.bloodGroup == 'B+' ||
+                  obj.bloodGroup == 'B-' ||
+                  obj.bloodGroup == 'AB+' ||
+                  obj.bloodGroup == 'AB-'
+                ) {
+                  return obj;
+                }
+              });
+              setData(matchBloodDonor);
+              setLoader(false);
+              return;
+            case 'O-':
+              var matchBloodDonor = arr.filter((obj) => {
+                if (
+                  obj.bloodGroup == 'A-' ||
+                  obj.bloodGroup == 'B-' ||
+                  obj.bloodGroup == 'AB-'
+                ) {
+                  return obj;
+                }
+              });
+              setData(matchBloodDonor);
+              setLoader(false);
+              return;
+            default:
+              setLoader(false);
+              return;
+          }
         } else {
           setData([]);
+          setLoader(false);
         }
-        setLoader(false);
       });
   };
 
@@ -77,21 +174,6 @@ const FindDonor = ({navigation, bloodGroup, city, searchCitypActionSet}) => {
       keyboardDidShowListener.remove();
     };
   }, []);
-
-  // useEffect(() => {
-  //   if (bloodGroup !== '') {
-  //     state && setstate(false);
-  //     setLoader(true);
-  //     setstate(false);
-  //     setTimeout(() => {
-  //       setLoader(false);
-  //     }, 100);
-  //   }
-  // }, [bloodGroup]);
-
-  // useEffect(() => {
-  //   console.log(Data);
-  // }, [Data]);
 
   return (
     <>
@@ -322,60 +404,3 @@ const styles = StyleSheet.create({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FindDonor);
-
-const data = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Abdullah',
-    bloodGroup: 'A+',
-    contact: '45894784598',
-    age: '18',
-    city: 'karachi',
-    gender: 'male',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    name: 'Basit',
-    bloodGroup: 'B+',
-    contact: '45894784598',
-    age: '22',
-    city: 'karachi',
-    gender: 'male',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    name: 'Ghous',
-    bloodGroup: 'C-',
-    contact: '+45894784598',
-    age: '18',
-    city: 'karachi',
-    gender: 'male',
-  },
-  {
-    id: '58694afsdf0f-3da1-471f-bd96-145571e29d72',
-    name: 'Ghous',
-    bloodGroup: 'C-',
-    contact: '+45894784598',
-    age: '18',
-    city: 'karachi',
-    gender: 'male',
-  },
-  {
-    id: '586fdfs94a0f-3da1-471f-bd96-145571e29d72',
-    name: 'Ghous',
-    bloodGroup: 'C-',
-    contact: '+45894784598',
-    age: '18',
-    city: 'karachi',
-    gender: 'male',
-  },
-  {
-    id: '5869jty4a0f-3da1-471f-bd96-145571e29d72',
-    name: 'Ghous',
-    bloodGroup: 'C-',
-    contact: '+45894784598',
-    age: '18',
-    city: 'karachi',
-    gender: 'male',
-  },
-];
