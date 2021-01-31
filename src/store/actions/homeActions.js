@@ -34,11 +34,18 @@ const loaderAction = (flag) => {
   };
 };
 
+const resethomeAction = () => {
+  return (dispatch) => {
+    dispatch({type: 'RESET'});
+  };
+};
+
 export {
   userAction,
   initializationAction,
   nameAction,
   emailAction,
   passwordAction,
-  loaderAction
+  loaderAction,
+  resethomeAction,
 };

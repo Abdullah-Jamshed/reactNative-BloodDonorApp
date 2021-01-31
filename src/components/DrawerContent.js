@@ -10,8 +10,12 @@ import {
 } from 'react-native';
 
 import {connect} from 'react-redux';
-import {userAction} from '../store/actions/homeActions';
-import {successAction} from '../store/actions/becomeDonorAction';
+import {userAction, resethomeAction} from '../store/actions/homeActions';
+import {resetfindDonorAction} from '../store/actions/findDonorAction';
+import {
+  successAction,
+  resetBecomeDonorAction,
+} from '../store/actions/becomeDonorAction';
 
 import auth from '@react-native-firebase/auth';
 import {color} from 'react-native-reanimated';
@@ -21,11 +25,22 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {LoginManager} from 'react-native-fbsdk';
 
-const DrawerContent = ({userActionSet, user, navigation, successActionSet}) => {
-  // const SignOut = () => {
-  //   auth().signOut();
-  // };
+const DrawerContent = ({
+  userActionSet,
+  user,
+  navigation,
+  successActionSet,
+  resethomeActionSet,
+  resetBecomeDonorActionSet,
+  resetfindDonorActionSet,
+}) => {
+  const reduxStoreReset = () => {
+    resethomeActionSet();
+    resetBecomeDonorActionSet();
+    resetfindDonorActionSet();
+  };
   const SignOut = () => {
+    reduxStoreReset();
     auth().signOut();
     LoginManager.logOut();
   };
@@ -167,6 +182,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     userActionSet: (user) => dispatch(userAction(user)),
     successActionSet: (success) => dispatch(successAction(success)),
+    resethomeActionSet: () => dispatch(resethomeAction()),
+    resetBecomeDonorActionSet: () => dispatch(resetBecomeDonorAction()),
+    resetfindDonorActionSet: () => dispatch(resetfindDonorAction()),
   };
 };
 

@@ -4,14 +4,8 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  ScrollView,
-  Keyboard,
   TextInput,
-  ActivityIndicator,
-  Image,
 } from 'react-native';
-
-// import database from '@react-native-firebase/database';
 
 import {connect} from 'react-redux';
 import {
@@ -23,15 +17,8 @@ import {
   successAction,
 } from '../store/actions/becomeDonorAction';
 
-// import BottomBar from '../components/BottomBar';
-// import Header from '../components/Header';
-// import BloodGroups from '../components/BloodGroups';
-
-import Ionicons from 'react-native-vector-icons/Ionicons';
-
 const BloodDonorFields = ({
   user,
-  bloodGroup,
   name,
   age,
   gender,
@@ -55,7 +42,7 @@ const BloodDonorFields = ({
       <View style={styles.inputFieldNameCont}>
         <TextInput
           style={styles.inputFieldName}
-          value={name}
+          defaultValue={name}
           editable={false}
         />
       </View>
@@ -96,7 +83,7 @@ const BloodDonorFields = ({
       <View style={styles.inputFieldNameCont}>
         <TextInput
           style={styles.inputFieldName}
-          value={age}
+          defaultValue={age}
           onChangeText={(text) => ageActionSet(text)}
         />
         <Text style={styles.helpText}>Age must be minimum 18</Text>
@@ -107,7 +94,7 @@ const BloodDonorFields = ({
       <View style={styles.inputFieldNameCont}>
         <TextInput
           style={styles.inputFieldName}
-          value={city}
+          defaultValue={city}
           onChangeText={(text) => cityActionSet(text)}
         />
       </View>
@@ -117,7 +104,7 @@ const BloodDonorFields = ({
       <View style={styles.inputFieldNameCont}>
         <TextInput
           style={styles.inputFieldName}
-          value={contact}
+          defaultValue={contact}
           onChangeText={(text) => contactActionSet(text)}
         />
       </View>

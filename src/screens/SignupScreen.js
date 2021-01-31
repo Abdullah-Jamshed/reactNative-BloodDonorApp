@@ -32,24 +32,26 @@ const SignupScreen = ({
   emailActionSet,
   passwordActionSet,
   userActionSet,
-  user,
 }) => {
+  const [alreadyInUse, setAlreadyInUse] = useState(false);
+
   const createUser = () => {
     auth()
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
-        console.log('User account created & signed in!');
+        // console.log('User account created & signed in!');
+        alreadyInUse && setAlreadyInUse(false);
         var userUpdate = auth().currentUser;
-
         userUpdate
           .updateProfile({
             displayName: name,
           })
           .then(function () {
             // Update successful.
+            nameActionSet('');
+            emailActionSet('');
+            passwordActionSet('');
             userActionSet(auth().currentUser);
-            // console.log("after update",)
-            // console.log('Update successful.');
           })
           .catch(function (error) {
             // An error happened.
@@ -58,14 +60,20 @@ const SignupScreen = ({
       })
       .catch((error) => {
         if (error.code === 'auth/email-already-in-use') {
+          setAlreadyInUse(true);
           console.log('That email address is already in use!');
         }
         if (error.code === 'auth/invalid-email') {
           console.log('That email address is invalid!');
         }
-        console.error(error);
       });
   };
+
+  useEffect(() => {
+    nameActionSet('');
+    emailActionSet('');
+    passwordActionSet('');
+  }, []);
 
   return (
     <>
@@ -79,7 +87,7 @@ const SignupScreen = ({
             name="name"
             placeholder="Name"
             keyboardType="name-phone-pad"
-            value={name}
+            defaultValue={name}
             onChangeText={(text) => nameActionSet(text)}
           />
           <TextInput
@@ -87,15 +95,20 @@ const SignupScreen = ({
             name="email"
             placeholder="email"
             keyboardType="email-address"
-            value={email}
+            defaultValue={email}
             onChangeText={(text) => emailActionSet(text)}
           />
+          {alreadyInUse && (
+            <Text style={{fontSize: 10, color: '#fb3d4a'}}>
+              Email already in use
+            </Text>
+          )}
           <TextInput
             style={styles.inputFeild}
             name="password"
             placeholder="password"
             secureTextEntry={true}
-            value={password}
+            defaultValue={password}
             onChangeText={(text) => passwordActionSet(text)}
           />
           <View>
@@ -113,7 +126,12 @@ const SignupScreen = ({
             <TouchableOpacity
               style={styles.backButton}
               activeOpacity={0.9}
-              onPress={() => navigation.goBack()}>
+              onPress={() => {
+                nameActionSet('');
+                emailActionSet('');
+                passwordActionSet('');
+                navigation.goBack();
+              }}>
               <Text style={styles.buttonBackText}>Go Back</Text>
             </TouchableOpacity>
           </View>
@@ -130,7 +148,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fff',
     paddingTop: 100,
-    // paddingVertical:100,
   },
   circle: {
     width: 80,
@@ -186,7 +203,6 @@ const styles = StyleSheet.create({
   },
   backButton: {
     width: 80,
-    // backgroundColor: 'green',
     justifyContent: 'center',
     alignItems: 'center',
     padding: 8,

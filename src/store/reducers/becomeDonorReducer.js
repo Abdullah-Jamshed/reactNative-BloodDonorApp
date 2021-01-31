@@ -45,7 +45,8 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         success: action.payload.success,
       };
-
+    case 'RESET':
+      return INITIAL_STATE;
     default:
       return state;
   }

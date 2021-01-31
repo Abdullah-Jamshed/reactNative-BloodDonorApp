@@ -4,4 +4,10 @@ const searchCitypAction = (city) => {
   };
 };
 
-export {searchCitypAction};
+const resetfindDonorAction = () => {
+  return (dispatch) => {
+    dispatch({type: 'RESET'});
+  };
+};
+
+export {searchCitypAction, resetfindDonorAction};

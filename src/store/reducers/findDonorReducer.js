@@ -9,7 +9,8 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         city: action.payload.city,
       };
-
+    case 'RESET':
+      return INITIAL_STATE;
     default:
       return state;
   }

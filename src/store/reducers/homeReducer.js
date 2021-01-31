@@ -44,6 +44,8 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         user: action.payload.user,
       };
+    case 'RESET':
+      return INITIAL_STATE;
     default:
       return state;
   }

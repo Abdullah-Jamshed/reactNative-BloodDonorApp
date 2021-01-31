@@ -37,6 +37,12 @@ const successAction = (success) => {
   };
 };
 
+const resetBecomeDonorAction = () => {
+  return (dispatch) => {
+    dispatch({type: 'RESET'});
+  };
+};
+
 export {
   bloodGroupAction,
   nameAction,
@@ -45,4 +51,5 @@ export {
   contactAction,
   cityAction,
   successAction,
+  resetBecomeDonorAction,
 };
