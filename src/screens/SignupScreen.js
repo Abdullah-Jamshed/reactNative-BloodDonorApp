@@ -125,13 +125,19 @@ const SignupScreen = ({
             <TouchableOpacity
               onPress={createUser}
               style={
-                email === '' || password === '' || password.length < 6
+                name === '' ||
+                email === '' ||
+                password === '' ||
+                password.length < 6
                   ? styles.disableButton
                   : styles.button
               }
               activeOpacity={0.9}
               disabled={
-                email === '' || password === '' || password.length < 6
+                name === '' ||
+                email === '' ||
+                password === '' ||
+                password.length < 6
                   ? true
                   : false
               }>
