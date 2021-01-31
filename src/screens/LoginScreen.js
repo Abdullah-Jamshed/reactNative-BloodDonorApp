@@ -17,18 +17,9 @@ import {AccessToken, LoginManager} from 'react-native-fbsdk';
 import {connect} from 'react-redux';
 import {userAction, loaderAction} from '../store/actions/homeActions';
 
-import HomeScreen from './HomeScreen';
-import SignupScreen from './SignupScreen';
-
 const {width, height} = Dimensions.get('window');
 
-const LoginScreen = ({
-  navigation,
-  user,
-  userActionSet,
-  loader,
-  loaderActionSet,
-}) => {
+const LoginScreen = ({navigation, loader, loaderActionSet}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [invalidEmail, setInvalidEmail] = useState(false);
@@ -115,9 +106,7 @@ const LoginScreen = ({
               user not found
             </Text>
           )}
-          {/* {invalidEmail && (
-            <Text style={{fontSize: 10, color: '#fb3d4a'}}>invalid email</Text>
-          )} */}
+
           <TextInput
             style={styles.inputFeild}
             name="password"
@@ -155,7 +144,6 @@ const LoginScreen = ({
             </TouchableOpacity>
           </View>
         </View>
-        {/* </ImageBackground> */}
       </View>
     </>
   );
