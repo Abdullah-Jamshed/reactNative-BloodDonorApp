@@ -73,10 +73,10 @@ const BecomeDonor = ({
       .child(`/donors/${user.uid}`)
       .set({
         uid: user.uid,
+        city: city.toLowerCase(),
         name,
         age,
         gender,
-        city,
         contact,
         bloodGroup,
       })

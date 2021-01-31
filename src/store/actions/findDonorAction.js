@@ -1,7 +1,7 @@
-const bloodGroupAction = (group) => {
+const searchCitypAction = (city) => {
   return (dispatch) => {
-    dispatch({type: 'BLOODGROUP', payload: {group}});
+    dispatch({type: 'CITY', payload: {city}});
   };
 };
 
-export {bloodGroupAction};
+export {searchCitypAction};

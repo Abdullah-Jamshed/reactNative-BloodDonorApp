@@ -1,13 +1,13 @@
 const INITIAL_STATE = {
-  bloodGroup: '',
+  city: '',
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case 'BLOODGROUP':
+    case 'CITY':
       return {
         ...state,
-        bloodGroup: action.payload.group,
+        city: action.payload.city,
       };
 
     default:

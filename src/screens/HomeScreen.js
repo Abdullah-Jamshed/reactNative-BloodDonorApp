@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 import {connect} from 'react-redux';
+import {bloodGroupAction} from '../store/actions/becomeDonorAction';
 
 import database from '@react-native-firebase/database';
 
@@ -20,7 +21,7 @@ import Header from '../components/Header';
 
 const {width, height} = Dimensions.get('window');
 
-const HomeScreen = ({user, navigation}) => {
+const HomeScreen = ({user, navigation, bloodGroupActionSet}) => {
   const createUserNode = async () => {
     if (user) {
       const {
@@ -65,6 +66,7 @@ const HomeScreen = ({user, navigation}) => {
               activeOpacity={0.8}
               style={styles.findDonorButton}
               onPress={() => {
+                bloodGroupActionSet('');
                 navigation.navigate('FindDonor');
               }}
               // onPress={() => {
@@ -122,7 +124,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    userActionSet: (user) => dispatch(userAction(user)),
+    // userActionSet: (user) => dispatch(userAction(user)),
+    bloodGroupActionSet: (group) => dispatch(bloodGroupAction(group)),
   };
 };
 
