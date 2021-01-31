@@ -127,6 +127,8 @@ const FindDonor = ({
                   obj.bloodGroup == 'A-' ||
                   obj.bloodGroup == 'B+' ||
                   obj.bloodGroup == 'B-' ||
+                  obj.bloodGroup == 'O+' ||
+                  obj.bloodGroup == 'O-' ||
                   obj.bloodGroup == 'AB+' ||
                   obj.bloodGroup == 'AB-'
                 ) {
@@ -141,7 +143,8 @@ const FindDonor = ({
                 if (
                   obj.bloodGroup == 'A-' ||
                   obj.bloodGroup == 'B-' ||
-                  obj.bloodGroup == 'AB-'
+                  obj.bloodGroup == 'AB-' ||
+                  obj.bloodGroup == 'O-'
                 ) {
                   return obj;
                 }
