@@ -66,6 +66,7 @@ const SignupScreen = ({
         if (error.code === 'auth/invalid-email') {
           console.log('That email address is invalid!');
         }
+        console.log(error.code);
       });
   };
 
@@ -104,23 +105,36 @@ const SignupScreen = ({
             </Text>
           )}
           <TextInput
-            style={styles.inputFeild}
+            style={[styles.inputFeild, {marginBottom: 0}]}
             name="password"
             placeholder="password"
             secureTextEntry={true}
             defaultValue={password}
             onChangeText={(text) => passwordActionSet(text)}
           />
+          <Text
+            style={{
+              fontSize: 10,
+              color: '#fb3d4a',
+              marginTop: 5,
+              marginBottom: 10,
+            }}>
+            minimum 6 character
+          </Text>
           <View>
             <TouchableOpacity
               onPress={createUser}
               style={
-                email === '' || password === ''
+                email === '' || password === '' || password.length < 6
                   ? styles.disableButton
                   : styles.button
               }
               activeOpacity={0.9}
-              disabled={email === '' || password === '' ? true : false}>
+              disabled={
+                email === '' || password === '' || password.length < 6
+                  ? true
+                  : false
+              }>
               <Text style={styles.buttonText}>Create Account</Text>
             </TouchableOpacity>
             <TouchableOpacity

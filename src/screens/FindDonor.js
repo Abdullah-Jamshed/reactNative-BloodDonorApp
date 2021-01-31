@@ -25,7 +25,13 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const {width, height} = Dimensions.get('window');
 
-const FindDonor = ({navigation, bloodGroup, city, searchCitypActionSet}) => {
+const FindDonor = ({
+  navigation,
+  bloodGroup,
+  city,
+  bloodGroupActionSet,
+  searchCitypActionSet,
+}) => {
   const [state, setstate] = useState(true);
   const [loader, setLoader] = useState(false);
   const [Data, setData] = useState([]);
@@ -41,7 +47,7 @@ const FindDonor = ({navigation, bloodGroup, city, searchCitypActionSet}) => {
     database()
       .ref('/donors')
       .orderByChild(`city`)
-      .equalTo(city.toLowerCase())
+      .equalTo(city.replace(/\s/g, '').toLowerCase())
       .once('value', (data) => {
         const dataObj = data.val();
         const arr = [];
@@ -172,6 +178,10 @@ const FindDonor = ({navigation, bloodGroup, city, searchCitypActionSet}) => {
       keyboardDidHideListener.remove();
       keyboardDidShowListener.remove();
     };
+  }, []);
+
+  useEffect(() => {
+    bloodGroupActionSet('');
   }, []);
 
   useEffect(() => {
