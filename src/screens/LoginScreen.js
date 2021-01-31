@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -7,7 +7,6 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
-  Keyboard,
   ActivityIndicator,
   ImageBackground,
 } from 'react-native';
@@ -24,21 +23,33 @@ const LoginScreen = ({navigation, loader, loaderActionSet}) => {
   const [password, setPassword] = useState('');
   const [invalidEmail, setInvalidEmail] = useState(false);
   const [userNotFound, setUserNotFound] = useState(false);
+  const [wrongPassword, setWrongPassword] = useState(false);
+  const [signInLoader, setSignInLoader] = useState(false);
 
   const signIn = () => {
+    setSignInLoader(true);
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        setInvalidEmail(false);
-        setUserNotFound(false);
+        invalidEmail && setInvalidEmail(false);
+        userNotFound && setUserNotFound(false);
+        wrongPassword && setWrongPassword(false);
+        setSignInLoader(false);
       })
       .catch((error) => {
         if (error.code === 'auth/invalid-email') {
+          setSignInLoader(false);
           setInvalidEmail(true);
         }
         if (error.code === 'auth/user-not-found') {
+          setSignInLoader(false);
           setUserNotFound(true);
         }
+        if (error.code === 'auth/wrong-password') {
+          setSignInLoader(false);
+          setWrongPassword(true);
+        }
+        // console.log(error.code);
       });
   };
   const facebookLogin = async () => {
@@ -115,6 +126,11 @@ const LoginScreen = ({navigation, loader, loaderActionSet}) => {
             value={password}
             onChangeText={(password) => setPassword(password)}
           />
+          {wrongPassword && (
+            <Text style={{fontSize: 10, color: '#fb3d4a', marginBottom: 10}}>
+              wrong password
+            </Text>
+          )}
           <View>
             <TouchableOpacity
               style={
@@ -126,6 +142,9 @@ const LoginScreen = ({navigation, loader, loaderActionSet}) => {
               disabled={email === '' || password === '' ? true : false}
               onPress={signIn}>
               <Text style={styles.buttonText}>Sign In</Text>
+              {signInLoader && (
+                <ActivityIndicator style={{marginLeft: 5}} color={'#fff'} />
+              )}
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.button}
@@ -134,7 +153,7 @@ const LoginScreen = ({navigation, loader, loaderActionSet}) => {
               <Text style={styles.buttonText}>Sign Up</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={[styles.button, {flexDirection: 'row'}]}
+              style={styles.button}
               activeOpacity={0.9}
               onPress={facebookLogin}>
               <Text style={styles.buttonText}>Login With Facebook</Text>
@@ -180,6 +199,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   button: {
+    flexDirection: 'row',
     backgroundColor: '#fb3d4a',
     padding: 10,
     justifyContent: 'center',
