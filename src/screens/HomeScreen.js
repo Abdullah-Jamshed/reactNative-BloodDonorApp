@@ -66,7 +66,6 @@ const HomeScreen = ({user, navigation, bloodGroupActionSet}) => {
               activeOpacity={0.8}
               style={styles.findDonorButton}
               onPress={() => {
-                bloodGroupActionSet('');
                 navigation.navigate('FindDonor');
               }}
               // onPress={() => {

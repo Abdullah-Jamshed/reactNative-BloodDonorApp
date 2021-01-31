@@ -307,7 +307,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // successActionSet: (success) => dispatch(successAction(success)),
     bloodGroupActionSet: (group) => dispatch(bloodGroupAction(group)),
     searchCitypActionSet: (city) => dispatch(searchCitypAction(city)),
   };
@@ -345,9 +344,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffcdd4',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 10,
-    height: 40,
-    width: 40,
+    padding: 5,
+    height: 45,
+    width: 45,
     borderRadius: 10,
   },
   bloodGroupText: {
