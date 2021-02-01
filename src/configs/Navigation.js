@@ -9,7 +9,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {LoginManager} from 'react-native-fbsdk';
 
 import auth from '@react-native-firebase/auth';
-import database from '@react-native-firebase/database';
+// import database from '@react-native-firebase/database';
 
 import {connect} from 'react-redux';
 import {userAction, loaderAction} from '../store/actions/homeActions';
@@ -105,9 +105,17 @@ const Navigation = ({user, userActionSet, loaderActionSet}) => {
           <Drawer.Screen name="Home" component={HomeStack} />
           <Drawer.Screen name="BecomeDonor" component={BecomeDonorStack} />
           <Drawer.Screen name="About" component={AboutStack} />
-          <Drawer.Screen name="FindDonor" component={FindDonorStack} />
+          <Drawer.Screen
+            name="FindDonor"
+            component={FindDonorStack}
+            options={{swipeEnabled: false}}
+          />
           <Drawer.Screen name="Profile" component={ProfileStack} />
-          <Drawer.Screen name="DonorDetail" component={DonorDetailStack} />
+          <Drawer.Screen
+            name="DonorDetail"
+            component={DonorDetailStack}
+            options={{swipeEnabled: false}}
+          />
         </Drawer.Navigator>
       )}
     </NavigationContainer>

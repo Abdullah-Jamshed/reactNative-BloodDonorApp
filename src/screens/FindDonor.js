@@ -195,7 +195,7 @@ const FindDonor = ({
   }, []);
 
   useEffect(() => {
-    if (initialization) {
+    if (initialization && city !== '') {
       searchDonor();
     }
   }, [bloodGroup]);

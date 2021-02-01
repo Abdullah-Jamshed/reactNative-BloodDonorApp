@@ -75,7 +75,7 @@ const Profile = ({navigation, user}) => {
                     <View style={styles.iconContainer}>
                       <MaterialCommunityIcons
                         name="gender-male-female"
-                        size={30}
+                        size={25}
                         color={'#fff'}
                       />
                     </View>
@@ -92,7 +92,7 @@ const Profile = ({navigation, user}) => {
                     <View style={styles.iconContainer}>
                       <MaterialCommunityIcons
                         name="calendar"
-                        size={30}
+                        size={25}
                         color={'#fff'}
                       />
                     </View>
@@ -107,7 +107,7 @@ const Profile = ({navigation, user}) => {
                     <View style={styles.iconContainer}>
                       <MaterialCommunityIcons
                         name="phone"
-                        size={30}
+                        size={25}
                         color={'#fff'}
                       />
                     </View>
@@ -122,7 +122,7 @@ const Profile = ({navigation, user}) => {
 
                   <View style={styles.userInfoContainer}>
                     <View style={styles.iconContainer}>
-                      <Entypo name="location-pin" size={30} color={'#fff'} />
+                      <Entypo name="location-pin" size={25} color={'#fff'} />
                     </View>
                     <View style={styles.detailInfo}>
                       <Text style={styles.detailInfoText}>
@@ -135,19 +135,12 @@ const Profile = ({navigation, user}) => {
                     <View style={styles.iconContainer}>
                       <MaterialCommunityIcons
                         name="email"
-                        size={30}
+                        size={25}
                         color={'#fff'}
                       />
                     </View>
                     <View style={styles.detailInfo}>
-                      <Text
-                        style={
-                          profileData.email
-                            ? profileData.email.length > 18
-                              ? {fontSize: 14}
-                              : {fontSize: 16}
-                            : null
-                        }>
+                      <Text style={styles.detailInfoText}>
                         {profileData.email
                           ? profileData.email
                           : 'Not Available'}
@@ -157,7 +150,7 @@ const Profile = ({navigation, user}) => {
 
                   <View style={styles.userInfoContainer}>
                     <View style={styles.iconContainer}>
-                      <Entypo name="drop" size={30} color={'#fff'} />
+                      <Entypo name="drop" size={25} color={'#fff'} />
                     </View>
                     <View style={styles.detailInfo}>
                       <Text style={styles.detailInfoText}>
@@ -173,7 +166,7 @@ const Profile = ({navigation, user}) => {
                     <View style={styles.iconContainer}>
                       <MaterialCommunityIcons
                         name="blood-bag"
-                        size={30}
+                        size={25}
                         color={'#fff'}
                       />
                     </View>
@@ -259,7 +252,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
   },
-  detailInfoText: {fontSize: 16},
+  detailInfoText: {fontSize: 14},
   loadingCont: {
     flex: 1,
     justifyContent: 'center',
