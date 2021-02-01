@@ -56,7 +56,7 @@ const DonorDetail = ({navigation, donorUID, donorUIDActionSet}) => {
               donorUIDActionSet(null);
               navigation.goBack();
             }}>
-            <Ionicons name="chevron-back-sharp" size={30} color={'#fb3d4a'} />
+            <Ionicons name="chevron-back-sharp" size={25} color={'#fb3d4a'} />
           </TouchableOpacity>
           <BottomBar navigation={navigation} screen="profile" />
           <View style={styles.profileContainer}>
@@ -84,6 +84,7 @@ const DonorDetail = ({navigation, donorUID, donorUIDActionSet}) => {
             <ScrollView
               contentContainerStyle={{
                 flexGrow: 1,
+                paddingVertical: 20,
               }}>
               <View style={{paddingBottom: 70}}>
                 <View style={styles.InfoContainer}>
@@ -91,7 +92,7 @@ const DonorDetail = ({navigation, donorUID, donorUIDActionSet}) => {
                     <View style={styles.iconContainer}>
                       <MaterialCommunityIcons
                         name="gender-male-female"
-                        size={30}
+                        size={25}
                         color={'#fff'}
                       />
                     </View>
@@ -108,7 +109,7 @@ const DonorDetail = ({navigation, donorUID, donorUIDActionSet}) => {
                     <View style={styles.iconContainer}>
                       <MaterialCommunityIcons
                         name="calendar"
-                        size={30}
+                        size={25}
                         color={'#fff'}
                       />
                     </View>
@@ -123,7 +124,7 @@ const DonorDetail = ({navigation, donorUID, donorUIDActionSet}) => {
                     <View style={styles.iconContainer}>
                       <MaterialCommunityIcons
                         name="phone"
-                        size={30}
+                        size={25}
                         color={'#fff'}
                       />
                     </View>
@@ -138,7 +139,7 @@ const DonorDetail = ({navigation, donorUID, donorUIDActionSet}) => {
 
                   <View style={styles.userInfoContainer}>
                     <View style={styles.iconContainer}>
-                      <Entypo name="location-pin" size={30} color={'#fff'} />
+                      <Entypo name="location-pin" size={25} color={'#fff'} />
                     </View>
                     <View style={styles.detailInfo}>
                       <Text style={styles.detailInfoText}>
@@ -151,7 +152,7 @@ const DonorDetail = ({navigation, donorUID, donorUIDActionSet}) => {
                     <View style={styles.iconContainer}>
                       <MaterialCommunityIcons
                         name="email"
-                        size={30}
+                        size={25}
                         color={'#fff'}
                       />
                     </View>
@@ -174,7 +175,7 @@ const DonorDetail = ({navigation, donorUID, donorUIDActionSet}) => {
                   <View
                     style={[styles.userInfoContainer, {borderBottomWidth: 0}]}>
                     <View style={styles.iconContainer}>
-                      <Entypo name="drop" size={30} color={'#fff'} />
+                      <Entypo name="drop" size={25} color={'#fff'} />
                     </View>
                     <View style={styles.detailInfo}>
                       <Text style={styles.detailInfoText}>
