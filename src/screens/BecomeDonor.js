@@ -84,6 +84,17 @@ const BecomeDonor = ({
         setLoader2(false);
         successActionSet(true);
         setLoader3(false);
+        database()
+          .ref('users')
+          .child(`${user.uid}`)
+          .update({
+            donor: true,
+            bloodGroup,
+            age,
+            gender,
+            contact,
+            city: city.toLowerCase(),
+          });
       });
   };
 

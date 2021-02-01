@@ -67,7 +67,12 @@ const DrawerContent = ({
               <Text style={styles.profileName}>{user.displayName}</Text>
             </View>
             <View style={styles.drawerOptions}>
-              <TouchableOpacity style={styles.drawerOption} activeOpacity={0.7}>
+              <TouchableOpacity
+                style={styles.drawerOption}
+                activeOpacity={0.7}
+                onPress={() => {
+                  navigation.navigate('Profile');
+                }}>
                 <Ionicons
                   name="person"
                   size={25}

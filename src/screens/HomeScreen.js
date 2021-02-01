@@ -51,12 +51,6 @@ const HomeScreen = ({user, navigation, bloodGroupActionSet}) => {
         <View style={styles.container}>
           <Header navigation={navigation} />
           <BottomBar navigation={navigation} screen="home" />
-          {/* <TouchableOpacity
-            activeOpacity={0.8}
-            style={styles.header}
-            onPress={() => navigation.openDrawer()}>
-            <Ionicons name="menu" size={30} color={'#fb3d4a'} />
-          </TouchableOpacity> */}
           <View style={styles.middle}>
             <Image
               source={require('../assests/findDonorBg.png')}
@@ -67,11 +61,7 @@ const HomeScreen = ({user, navigation, bloodGroupActionSet}) => {
               style={styles.findDonorButton}
               onPress={() => {
                 navigation.navigate('FindDonor');
-              }}
-              // onPress={() => {
-              //   Linking.openURL(`tel:03452057791`);
-              // }}
-            >
+              }}>
               <Text style={styles.findDonorButtonText}>Find A Donor</Text>
             </TouchableOpacity>
           </View>

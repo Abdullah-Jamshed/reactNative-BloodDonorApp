@@ -20,6 +20,7 @@ import SignupScreen from '../screens/SignupScreen';
 import BecomeDonor from '../screens/BecomeDonor';
 import About from '../screens/About';
 import FindDonor from '../screens/FindDonor';
+import Profile from '../screens/Profile';
 
 import DrawerContent from '../components/DrawerContent';
 
@@ -59,6 +60,13 @@ const FindDonorStack = () => {
     </Stack.Navigator>
   );
 };
+const ProfileStack = () => {
+  return (
+    <Stack.Navigator headerMode={false}>
+      <Stack.Screen name="ProfileS" component={Profile} />
+    </Stack.Navigator>
+  );
+};
 
 const Navigation = ({user, userActionSet, loaderActionSet}) => {
   const onAuthStateChange = async (userCred) => {
@@ -90,6 +98,7 @@ const Navigation = ({user, userActionSet, loaderActionSet}) => {
           <Drawer.Screen name="BecomeDonor" component={BecomeDonorStack} />
           <Drawer.Screen name="About" component={AboutStack} />
           <Drawer.Screen name="FindDonor" component={FindDonorStack} />
+          <Drawer.Screen name="Profile" component={ProfileStack} />
         </Drawer.Navigator>
       )}
     </NavigationContainer>
@@ -104,7 +113,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     userActionSet: (user) => dispatch(userAction(user)),
-    loaderActionSet: (user) => dispatch(loaderAction(user)),
+    loaderActionSet: (flag) => dispatch(loaderAction(flag)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Navigation);
