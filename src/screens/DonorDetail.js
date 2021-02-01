@@ -188,7 +188,6 @@ const DonorDetail = ({navigation, donorUID, donorUIDActionSet}) => {
                 <View style={styles.buttonContainer}>
                   <TouchableOpacity activeOpacity={0.8} style={styles.button}>
                     <Text style={styles.buttonText}>Request</Text>
-                    <Text style={styles.buttonText}>Request</Text>
                   </TouchableOpacity>
                 </View>
               </View>
