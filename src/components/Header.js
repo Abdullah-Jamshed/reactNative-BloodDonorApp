@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, TouchableOpacity, StyleSheet} from 'react-native';
+import {TouchableOpacity, StyleSheet} from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -16,7 +16,6 @@ const Header = ({navigation}) => {
 
 const styles = StyleSheet.create({
   header: {
-    // backgroundColor: '#f5f5f5',
     paddingHorizontal: 20,
     paddingVertical: 10,
   },

@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-  city: '',
+  donorUID: null,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -8,6 +8,11 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         city: action.payload.city,
+      };
+    case 'DONORUID':
+      return {
+        ...state,
+        donorUID: action.payload.uid,
       };
     case 'RESET':
       return INITIAL_STATE;

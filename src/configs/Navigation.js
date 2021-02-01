@@ -21,6 +21,7 @@ import BecomeDonor from '../screens/BecomeDonor';
 import About from '../screens/About';
 import FindDonor from '../screens/FindDonor';
 import Profile from '../screens/Profile';
+import DonorDetail from '../screens/DonorDetail';
 
 import DrawerContent from '../components/DrawerContent';
 
@@ -67,6 +68,13 @@ const ProfileStack = () => {
     </Stack.Navigator>
   );
 };
+const DonorDetailStack = () => {
+  return (
+    <Stack.Navigator headerMode={false}>
+      <Stack.Screen name="DonorDetailS" component={DonorDetail} />
+    </Stack.Navigator>
+  );
+};
 
 const Navigation = ({user, userActionSet, loaderActionSet}) => {
   const onAuthStateChange = async (userCred) => {
@@ -99,6 +107,7 @@ const Navigation = ({user, userActionSet, loaderActionSet}) => {
           <Drawer.Screen name="About" component={AboutStack} />
           <Drawer.Screen name="FindDonor" component={FindDonorStack} />
           <Drawer.Screen name="Profile" component={ProfileStack} />
+          <Drawer.Screen name="DonorDetail" component={DonorDetailStack} />
         </Drawer.Navigator>
       )}
     </NavigationContainer>

@@ -14,7 +14,10 @@ import {
 
 import {connect} from 'react-redux';
 import {bloodGroupAction} from '../store/actions/becomeDonorAction';
-import {searchCitypAction} from '../store/actions/findDonorAction';
+import {
+  searchCitypAction,
+  donorUIDAction,
+} from '../store/actions/findDonorAction';
 
 import BottomBar from '../components/BottomBar';
 import BloodGroups from '../components/BloodGroups';
@@ -29,8 +32,10 @@ const FindDonor = ({
   navigation,
   bloodGroup,
   city,
+  user,
   bloodGroupActionSet,
   searchCitypActionSet,
+  donorUIDActionSet,
 }) => {
   const [state, setstate] = useState(true);
   const [loader, setLoader] = useState(false);
@@ -53,7 +58,9 @@ const FindDonor = ({
         const arr = [];
         if (dataObj !== null) {
           Object.keys(dataObj).map((key) => {
-            arr.push(dataObj[key]);
+            if (key !== user.uid) {
+              arr.push(dataObj[key]);
+            }
           });
           switch (bloodGroup) {
             case 'A+':
@@ -261,7 +268,14 @@ const FindDonor = ({
             <View style={{paddingVertical: 20}}>
               {Data.map((item) => {
                 return (
-                  <View key={item.uid} style={styles.itemContainer}>
+                  <TouchableOpacity
+                    key={item.uid}
+                    style={styles.itemContainer}
+                    activeOpacity={0.8}
+                    onPress={() => {
+                      navigation.navigate('DonorDetail');
+                      donorUIDActionSet(item.uid);
+                    }}>
                     <View style={styles.bloodGroupContainer}>
                       <Text style={styles.bloodGroupText}>
                         {item.bloodGroup}
@@ -290,7 +304,7 @@ const FindDonor = ({
                         </View>
                       </View>
                     </View>
-                  </View>
+                  </TouchableOpacity>
                 );
               })}
             </View>
@@ -327,6 +341,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     bloodGroupActionSet: (group) => dispatch(bloodGroupAction(group)),
     searchCitypActionSet: (city) => dispatch(searchCitypAction(city)),
+    donorUIDActionSet: (uid) => dispatch(donorUIDAction(uid)),
   };
 };
 
