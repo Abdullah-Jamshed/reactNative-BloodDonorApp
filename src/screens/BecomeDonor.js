@@ -15,8 +15,6 @@ import database from '@react-native-firebase/database';
 
 import {connect} from 'react-redux';
 import {
-  genderAction,
-  nameAction,
   ageAction,
   successAction,
 } from '../store/actions/becomeDonorAction';
