@@ -41,7 +41,6 @@ const BecomeDonor = ({
   const [loader1, setLoader1] = useState(true);
   const [loader2, setLoader2] = useState(false);
   const [loader3, setLoader3] = useState(false);
-  // const [initialization, setInitialization] = useState(false);
 
   const donorCheck = async () => {
     database()
