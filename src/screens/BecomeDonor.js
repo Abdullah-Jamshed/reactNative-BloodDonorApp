@@ -18,8 +18,6 @@ import {
   genderAction,
   nameAction,
   ageAction,
-  cityAction,
-  contactAction,
   successAction,
 } from '../store/actions/becomeDonorAction';
 
