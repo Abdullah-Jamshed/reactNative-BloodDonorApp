@@ -14,10 +14,7 @@ import {
 import database from '@react-native-firebase/database';
 
 import {connect} from 'react-redux';
-import {
-  ageAction,
-  successAction,
-} from '../store/actions/becomeDonorAction';
+import {successAction} from '../store/actions/becomeDonorAction';
 
 import BottomBar from '../components/BottomBar';
 import Header from '../components/Header';
@@ -80,17 +77,14 @@ const BecomeDonor = ({
         setLoader2(false);
         successActionSet(true);
         setLoader3(false);
-        database()
-          .ref('users')
-          .child(`${user.uid}`)
-          .update({
-            donor: true,
-            bloodGroup,
-            age,
-            gender,
-            contact,
-            city: city.toLowerCase(),
-          });
+        database().ref('users').child(`${user.uid}`).update({
+          donor: true,
+          bloodGroup,
+          age,
+          gender,
+          contact,
+          city: city.toLowerCase(),
+        });
       });
   };
 
