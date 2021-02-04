@@ -35,7 +35,6 @@ const DonorDetail = ({navigation, donorUID, donorUIDActionSet}) => {
         .child(`users/${donorUID}`)
         .on('value', (data) => {
           setProfileData(data.val());
-          console.log(data.val());
           setLoader(false);
         });
     }
@@ -56,36 +55,37 @@ const DonorDetail = ({navigation, donorUID, donorUIDActionSet}) => {
               donorUIDActionSet(null);
               navigation.goBack();
             }}>
-            <Ionicons name="chevron-back-sharp" size={25} color={'#fb3d4a'} />
+            <Ionicons name="chevron-back-sharp" size={30} color={'#fb3d4a'} />
           </TouchableOpacity>
           <BottomBar navigation={navigation} screen="profile" />
-          <View style={styles.profileContainer}>
-            <View
-              style={{
-                alignItems: 'center',
-              }}>
-              {profileData.photoURL ? (
-                <Image
-                  style={styles.image}
-                  source={{uri: profileData.photoURL}}
-                />
-              ) : (
-                <Image
-                  style={styles.image}
-                  source={{
-                    uri: 'https://graph.facebook.com/880856582715773/picture',
-                  }}
-                />
-              )}
 
-              <Text style={styles.name}>{profileData.displayName}</Text>
-            </View>
+          <ScrollView
+            contentContainerStyle={{
+              flexGrow: 1,
+              paddingVertical: 20,
+            }}>
+            <View style={styles.profileContainer}>
+              <View
+                style={{
+                  alignItems: 'center',
+                }}>
+                {profileData.photoURL ? (
+                  <Image
+                    style={styles.image}
+                    source={{uri: profileData.photoURL}}
+                  />
+                ) : (
+                  <Image
+                    style={styles.image}
+                    source={{
+                      uri: 'https://graph.facebook.com/880856582715773/picture',
+                    }}
+                  />
+                )}
 
-            <ScrollView
-              contentContainerStyle={{
-                flexGrow: 1,
-                paddingVertical: 20,
-              }}>
+                <Text style={styles.name}>{profileData.displayName}</Text>
+              </View>
+
               <View style={{paddingBottom: 70}}>
                 <View style={styles.InfoContainer}>
                   <View style={styles.userInfoContainer}>
@@ -192,8 +192,8 @@ const DonorDetail = ({navigation, donorUID, donorUIDActionSet}) => {
                   </TouchableOpacity>
                 </View>
               </View>
-            </ScrollView>
-          </View>
+            </View>
+          </ScrollView>
         </View>
       )}
     </>
@@ -286,8 +286,25 @@ const styles = StyleSheet.create({
     color: '#ffff',
   },
   backButton: {
-    paddingHorizontal: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 10,
     paddingVertical: 10,
+    position: 'absolute',
+    zIndex: 1,
+    backgroundColor: '#fff',
+    borderRadius: 100,
+    left: 20,
+    top: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 2,
   },
 });
 

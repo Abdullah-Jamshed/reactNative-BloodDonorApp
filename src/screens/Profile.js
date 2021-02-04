@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   ScrollView,
   TouchableOpacity,
+  StatusBar,
 } from 'react-native';
 
 import database from '@react-native-firebase/database';
@@ -38,6 +39,11 @@ const Profile = ({navigation, user}) => {
 
   return (
     <>
+      <StatusBar
+        style={{
+          backgroundColor: 'red',
+        }}
+      />
       {profileData === '' ? (
         <View style={styles.loadingCont}>
           <ActivityIndicator color={'#fb3d4a'} size={'large'} />
@@ -46,29 +52,30 @@ const Profile = ({navigation, user}) => {
         <View style={styles.container}>
           <Header navigation={navigation} />
           <BottomBar navigation={navigation} screen="profile" />
-          <View style={styles.profileContainer}>
-            <View
-              style={{
-                alignItems: 'center',
-              }}>
-              {profileData.photoURL ? (
-                <Image style={styles.image} source={{uri: user.photoURL}} />
-              ) : (
-                <Image
-                  style={styles.image}
-                  source={{
-                    uri: 'https://graph.facebook.com/880856582715773/picture',
-                  }}
-                />
-              )}
+          <ScrollView
+            contentContainerStyle={{
+              flexGrow: 1,
+              paddingVertical: 20,
+            }}>
+            <View style={styles.profileContainer}>
+              <View
+                style={{
+                  alignItems: 'center',
+                }}>
+                {profileData.photoURL ? (
+                  <Image style={styles.image} source={{uri: user.photoURL}} />
+                ) : (
+                  <Image
+                    style={styles.image}
+                    source={{
+                      uri: 'https://graph.facebook.com/880856582715773/picture',
+                    }}
+                  />
+                )}
 
-              <Text style={styles.name}>{profileData.displayName}</Text>
-            </View>
+                <Text style={styles.name}>{profileData.displayName}</Text>
+              </View>
 
-            <ScrollView
-              contentContainerStyle={{
-                flexGrow: 1,
-              }}>
               <View style={{paddingBottom: 70}}>
                 <View style={styles.InfoContainer}>
                   <View style={styles.userInfoContainer}>
@@ -189,8 +196,8 @@ const Profile = ({navigation, user}) => {
                   </TouchableOpacity>
                 </View>
               </View>
-            </ScrollView>
-          </View>
+            </View>
+          </ScrollView>
         </View>
       )}
     </>
