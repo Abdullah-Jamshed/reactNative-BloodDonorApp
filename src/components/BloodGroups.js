@@ -5,8 +5,6 @@ import {connect} from 'react-redux';
 import {bloodGroupAction} from '../store/actions/becomeDonorAction';
 
 const BloodGroups = ({bloodGroup, bloodGroupActionSet}) => {
-  // const [active, bloodGroupActionSet] = useState('');
-
   return (
     <View style={styles.container}>
       <View style={styles.bloodGBContainer}>
@@ -132,8 +130,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     backgroundColor: '#fb3d4a',
     width: 75,
-    // borderWidth: 1,
-    // borderColor: '#f5f5f5',
     borderColor: '#fb3d4a',
     borderWidth: 0.5,
     justifyContent: 'center',
@@ -146,8 +142,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
     width: 75,
-    // borderWidth: 1,
-    // borderColor: '#e8e8e8',
     borderColor: '#b3b3b3',
     borderWidth: 0.5,
     justifyContent: 'center',

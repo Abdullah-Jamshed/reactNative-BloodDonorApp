@@ -136,7 +136,7 @@ const BecomeDonor = ({
           <View style={styles.headingContainer}>
             <Text style={styles.heading}>Select Blood Group :</Text>
           </View>
-          <BloodGroups />
+          <BloodGroups screen="becomdonor" />
           <BloodDonorFields />
 
           <TouchableOpacity

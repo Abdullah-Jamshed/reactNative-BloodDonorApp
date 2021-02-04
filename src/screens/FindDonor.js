@@ -214,7 +214,7 @@ const FindDonor = ({
               Select Required Blood Group
             </Text>
           </View>
-          <BloodGroups />
+          <BloodGroups screen="findDonor" />
           <View
             style={{
               flexDirection: 'row',

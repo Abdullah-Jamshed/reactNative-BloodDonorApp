@@ -15,15 +15,11 @@ const {width, height} = Dimensions.get('window');
 const BottomBar = ({navigation, screen}) => {
   const [active, setActive] = useState(screen);
 
-
   return (
     <View style={styles.bottomBar}>
       <TouchableOpacity
         activeOpacity={1}
-        style={[
-          styles.iconContainer,
-          //   {borderRightWidth: 0.5, borderRightColor: '#f5f5f5'},
-        ]}
+        style={[styles.iconContainer]}
         onPress={() => {
           setActive(screen);
           navigation.navigate('Home');
@@ -38,10 +34,7 @@ const BottomBar = ({navigation, screen}) => {
       </TouchableOpacity>
       <TouchableOpacity
         activeOpacity={1}
-        style={[
-          styles.iconContainer,
-          //   {borderLeftWidth: 0.5, borderLeftColor: '#f5f5f5'},
-        ]}
+        style={[styles.iconContainer]}
         onPress={() => {
           setActive(screen);
           navigation.navigate('About');
