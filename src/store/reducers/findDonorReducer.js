@@ -1,5 +1,6 @@
 const INITIAL_STATE = {
   donorUID: null,
+  city:""
 };
 
 export default (state = INITIAL_STATE, action) => {

@@ -329,22 +329,6 @@ const FindDonor = ({
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.homeReducer.user,
-    bloodGroup: state.becomeDonorReducer.bloodGroup,
-    city: state.findDonorReducer.city,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    bloodGroupActionSet: (group) => dispatch(bloodGroupAction(group)),
-    searchCitypActionSet: (city) => dispatch(searchCitypAction(city)),
-    donorUIDActionSet: (uid) => dispatch(donorUIDAction(uid)),
-  };
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -434,5 +418,21 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
 });
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.homeReducer.user,
+    bloodGroup: state.becomeDonorReducer.bloodGroup,
+    city: state.findDonorReducer.city,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    bloodGroupActionSet: (group) => dispatch(bloodGroupAction(group)),
+    searchCitypActionSet: (city) => dispatch(searchCitypAction(city)),
+    donorUIDActionSet: (uid) => dispatch(donorUIDAction(uid)),
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(FindDonor);

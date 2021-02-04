@@ -13,20 +13,13 @@ const About = ({navigation, screen}) => {
         <Header navigation={navigation} />
         <BottomBar navigation={navigation} screen="about" />
         <View style={styles.aboutContainer}>
-          <Text>About Us</Text>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            style={styles.button}
-            onPress={() => {
-              database()
-                .ref()
-                .child('users/NgSIbSTfMFgUHnXpWS9A9pj3PjG3/displayName')
-                .once('value', (data) => {
-                  console.log(data.val());
-                });
+          <Text
+            style={{
+              textAlign: 'center',
+              fontSize: 17,
             }}>
-            <Text style={styles.buttonText}>Button</Text>
-          </TouchableOpacity>
+            This application can help you to find most compatible donor near you
+          </Text>
         </View>
       </View>
     </>
@@ -42,6 +35,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    alignSelf: 'center',
+    // backgroundColor: 'red',
   },
   button: {
     backgroundColor: '#fb3d4a',

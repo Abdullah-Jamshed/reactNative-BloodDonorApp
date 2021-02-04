@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   ScrollView,
   TouchableOpacity,
+  Linking,
 } from 'react-native';
 
 import database from '@react-native-firebase/database';
@@ -190,9 +191,9 @@ const DonorDetail = ({navigation, donorUID, donorUIDActionSet}) => {
                     activeOpacity={0.8}
                     style={styles.button}
                     onPress={() => {
-                      navigation.navigate('Request');
+                      Linking.openURL(`tel:${profileData.contact}`);
                     }}>
-                    <Text style={styles.buttonText}>Request</Text>
+                    <Text style={styles.buttonText}>Call Donor</Text>
                   </TouchableOpacity>
                 </View>
               </View>
