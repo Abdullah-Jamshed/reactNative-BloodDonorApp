@@ -21,14 +21,13 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Entypo from 'react-native-vector-icons/Entypo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const {width, height} = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 
 const DonorDetail = ({navigation, donorUID, donorUIDActionSet}) => {
   const [profileData, setProfileData] = useState(true);
   const [loader, setLoader] = useState(true);
 
   useEffect(() => {
-    console.log(donorUID);
     if (donorUID) {
       database()
         .ref()
