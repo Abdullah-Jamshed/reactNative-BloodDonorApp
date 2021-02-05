@@ -19,6 +19,8 @@ import Header from '../components/Header';
 import BloodGroups from '../components/BloodGroups';
 import BloodDonorFields from '../components/BloodDonorFields';
 
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 const UpdateProfile = ({
   navigation,
   user,
@@ -29,7 +31,24 @@ const UpdateProfile = ({
   contactUpdate,
 }) => {
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
-  const [loader2] = useState(false);
+  const [loader, setLoader] = useState(false);
+
+  const updateUserData = () => {
+    setLoader(true);
+    database()
+      .ref()
+      .child(`/users/${user.uid}`)
+      .update({
+        displayName: nameUpdate ? nameUpdate : null,
+        age: ageUpdate ? ageUpdate : null,
+        gender: genderUpdate ? genderUpdate : null,
+        city: cityUpdate ? cityUpdate : null,
+        contact: contactUpdate ? contactUpdate : null,
+      })
+      .then(() => {
+        setLoader(false);
+      });
+  };
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -54,7 +73,14 @@ const UpdateProfile = ({
   return (
     <View
       style={[styles.container, {paddingBottom: !isKeyboardVisible ? 65 : 10}]}>
-      <Header navigation={navigation} />
+      <TouchableOpacity
+        activeOpacity={0.8}
+        style={styles.backButton}
+        onPress={() => {
+          navigation.goBack();
+        }}>
+        <Ionicons name="chevron-back-sharp" size={30} color={'#fb3d4a'} />
+      </TouchableOpacity>
       {!isKeyboardVisible && (
         <BottomBar navigation={navigation} screen="updateProfile" />
       )}
@@ -70,11 +96,20 @@ const UpdateProfile = ({
         <BloodDonorFields screen="updateScreen" />
 
         <TouchableOpacity
-          style={nameUpdate === '' ? styles.disableButton : styles.button}
+          onPress={updateUserData}
+          style={
+            nameUpdate === '' || (ageUpdate !== '' && Number(ageUpdate) < 18)
+              ? styles.disableButton
+              : styles.button
+          }
           activeOpacity={0.9}
-          disabled={nameUpdate === '' ? true : false}>
+          disabled={
+            nameUpdate === '' || (ageUpdate !== '' && Number(ageUpdate) < 18)
+              ? true
+              : false
+          }>
           <Text style={styles.buttonText}>Update</Text>
-          {loader2 && (
+          {loader && (
             <ActivityIndicator style={{marginLeft: 5}} color={'#fff'} />
           )}
         </TouchableOpacity>
@@ -88,7 +123,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     zIndex: 2,
-    paddingTop: 45,
+    paddingTop: 55,
   },
 
   bgText: {
@@ -158,6 +193,18 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: 'bold',
     color: '#000',
+  },
+  backButton: {
+    justifyContent: 'center',
+    // alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    position: 'absolute',
+    zIndex: 1,
+    backgroundColor: '#fff',
+    borderRadius: 100,
+    // left: 20,
+    // top: 10,
   },
 });
 

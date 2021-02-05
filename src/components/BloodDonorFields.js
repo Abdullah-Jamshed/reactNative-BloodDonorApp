@@ -74,6 +74,10 @@ const BloodDonorFields = ({
     }
   }, []);
 
+  useEffect(() => {
+    console.log(ageValue);
+  }, [ageValue]);
+
   return (
     <View style={{width: '100%', alignItems: 'center'}}>
       <View style={styles.headingContainer}>
@@ -133,9 +137,15 @@ const BloodDonorFields = ({
       </View>
       <View style={styles.inputFieldNameCont}>
         <TextInput
+        keyboardType="decimal-pad"
           style={styles.inputFieldName}
           defaultValue={ageValue}
-          onChangeText={(text) => setAge(text)}
+          value={ageValue}
+          onChangeText={(text) => {
+            if (!isNaN(text)) {
+              setAge(text.replace(/\s/g,''));
+            }
+          }}
         />
         {Number(ageValue) < 18 && (
           <Text style={styles.helpText}>* Age must be minimum 18</Text>
@@ -148,6 +158,7 @@ const BloodDonorFields = ({
         <TextInput
           style={styles.inputFieldName}
           defaultValue={cityValue}
+          value={cityValue}
           onChangeText={(text) => setCity(text)}
         />
       </View>
@@ -156,9 +167,15 @@ const BloodDonorFields = ({
       </View>
       <View style={styles.inputFieldNameCont}>
         <TextInput
+          keyboardType="number-pad"
           style={styles.inputFieldName}
           defaultValue={contactValue}
-          onChangeText={(text) => setContact(text)}
+          value={contactValue}
+          onChangeText={(text) => {
+            if (!isNaN(text)) {
+              setContact(text.replace(/\s/g,''));
+            }
+          }}
         />
       </View>
     </View>

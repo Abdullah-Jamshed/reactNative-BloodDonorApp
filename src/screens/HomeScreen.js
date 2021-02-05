@@ -18,10 +18,11 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import BottomBar from '../components/BottomBar';
 import Header from '../components/Header';
+import {userAction} from '../store/actions/homeActions';
 
 const {width, height} = Dimensions.get('window');
 
-const HomeScreen = ({user, navigation, bloodGroupActionSet}) => {
+const HomeScreen = ({user, navigation, bloodGroupActionSet, userActionSet}) => {
   const createUserNode = async () => {
     if (user) {
       const {
@@ -35,6 +36,13 @@ const HomeScreen = ({user, navigation, bloodGroupActionSet}) => {
           email: user.email,
           photoURL: user.photoURL,
         });
+      } else {
+        database()
+          .ref(`/`)
+          .child(`/users/${user.uid}`)
+          .on('value', (data) => {
+            userActionSet(data.val());
+          });
       }
     }
   };
@@ -43,7 +51,7 @@ const HomeScreen = ({user, navigation, bloodGroupActionSet}) => {
     if (String(user.displayName) !== 'null') {
       createUserNode();
     }
-  }, [user]);
+  }, []);
 
   return (
     <>
@@ -113,7 +121,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // userActionSet: (user) => dispatch(userAction(user)),
+    userActionSet: (user) => dispatch(userAction(user)),
     bloodGroupActionSet: (group) => dispatch(bloodGroupAction(group)),
   };
 };
