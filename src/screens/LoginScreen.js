@@ -117,7 +117,6 @@ const LoginScreen = ({navigation, loader, loaderActionSet}) => {
               user not found
             </Text>
           )}
-
           <TextInput
             style={styles.inputFeild}
             name="password"

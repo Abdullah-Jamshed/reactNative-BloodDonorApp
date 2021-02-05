@@ -1,114 +1,125 @@
-import React, {useState} from 'react';
-import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, StyleSheet, Text, TouchableOpacity, Button} from 'react-native';
 
 import {connect} from 'react-redux';
 import {bloodGroupAction} from '../store/actions/becomeDonorAction';
+import {bloodGroupUpdateAction} from '../store/actions/updateProfileAction';
 
-const BloodGroups = ({bloodGroup, bloodGroupActionSet}) => {
+const BloodGroups = ({
+  bloodGroup,
+  bloodGroupUpdate,
+  bloodGroupUpdateActionSet,
+  bloodGroupActionSet,
+  screen,
+}) => {
+  const setBlood =
+    screen == 'updateScreen' ? bloodGroupUpdateActionSet : bloodGroupActionSet;
+  const bloodType = screen == 'updateScreen' ? bloodGroupUpdate : bloodGroup;
+
   return (
     <View style={styles.container}>
       <View style={styles.bloodGBContainer}>
         <TouchableOpacity
           activeOpacity={0.9}
-          onPress={() => bloodGroupActionSet('A+')}
+          onPress={() => setBlood('A+')}
           style={
-            bloodGroup === 'A+'
+            bloodType === 'A+'
               ? styles.activeBloodGroup
               : styles.bloodGroupButton
           }>
           <Text
-            style={bloodGroup === 'A+' ? styles.bgTextActive : styles.bgText}>
+            style={bloodType === 'A+' ? styles.bgTextActive : styles.bgText}>
             A+
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.9}
-          onPress={() => bloodGroupActionSet('A-')}
+          onPress={() => setBlood('A-')}
           style={
-            bloodGroup === 'A-'
+            bloodType === 'A-'
               ? styles.activeBloodGroup
               : styles.bloodGroupButton
           }>
           <Text
-            style={bloodGroup === 'A-' ? styles.bgTextActive : styles.bgText}>
+            style={bloodType === 'A-' ? styles.bgTextActive : styles.bgText}>
             A-
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.9}
-          onPress={() => bloodGroupActionSet('B+')}
+          onPress={() => setBlood('B+')}
           style={
-            bloodGroup === 'B+'
+            bloodType === 'B+'
               ? styles.activeBloodGroup
               : styles.bloodGroupButton
           }>
           <Text
-            style={bloodGroup === 'B+' ? styles.bgTextActive : styles.bgText}>
+            style={bloodType === 'B+' ? styles.bgTextActive : styles.bgText}>
             B+
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.9}
-          onPress={() => bloodGroupActionSet('B-')}
+          onPress={() => setBlood('B-')}
           style={
-            bloodGroup === 'B-'
+            bloodType === 'B-'
               ? styles.activeBloodGroup
               : styles.bloodGroupButton
           }>
           <Text
-            style={bloodGroup === 'B-' ? styles.bgTextActive : styles.bgText}>
+            style={bloodType === 'B-' ? styles.bgTextActive : styles.bgText}>
             B-
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.9}
-          onPress={() => bloodGroupActionSet('AB+')}
+          onPress={() => setBlood('AB+')}
           style={
-            bloodGroup === 'AB+'
+            bloodType === 'AB+'
               ? styles.activeBloodGroup
               : styles.bloodGroupButton
           }>
           <Text
-            style={bloodGroup === 'AB+' ? styles.bgTextActive : styles.bgText}>
+            style={bloodType === 'AB+' ? styles.bgTextActive : styles.bgText}>
             AB+
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.9}
-          onPress={() => bloodGroupActionSet('AB-')}
+          onPress={() => setBlood('AB-')}
           style={
-            bloodGroup === 'AB-'
+            bloodType === 'AB-'
               ? styles.activeBloodGroup
               : styles.bloodGroupButton
           }>
           <Text
-            style={bloodGroup === 'AB-' ? styles.bgTextActive : styles.bgText}>
+            style={bloodType === 'AB-' ? styles.bgTextActive : styles.bgText}>
             AB-
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.9}
-          onPress={() => bloodGroupActionSet('O-')}
+          onPress={() => setBlood('O-')}
           style={
-            bloodGroup === 'O-'
+            bloodType === 'O-'
               ? styles.activeBloodGroup
               : styles.bloodGroupButton
           }>
           <Text
-            style={bloodGroup === 'O-' ? styles.bgTextActive : styles.bgText}>
+            style={bloodType === 'O-' ? styles.bgTextActive : styles.bgText}>
             O-
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.9}
-          onPress={() => bloodGroupActionSet('O+')}
+          onPress={() => setBlood('O+')}
           style={
-            bloodGroup === 'O+'
+            bloodType === 'O+'
               ? styles.activeBloodGroup
               : styles.bloodGroupButton
           }>
           <Text
-            style={bloodGroup === 'O+' ? styles.bgTextActive : styles.bgText}>
+            style={bloodType === 'O+' ? styles.bgTextActive : styles.bgText}>
             O+
           </Text>
         </TouchableOpacity>
@@ -163,12 +174,15 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
   return {
     bloodGroup: state.becomeDonorReducer.bloodGroup,
+    bloodGroupUpdate: state.updateProfileReducer.bloodGroupUpdate,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     bloodGroupActionSet: (group) => dispatch(bloodGroupAction(group)),
+    bloodGroupUpdateActionSet: (group) =>
+      dispatch(bloodGroupUpdateAction(group)),
   };
 };
 

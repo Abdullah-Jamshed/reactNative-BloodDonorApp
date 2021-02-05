@@ -14,8 +14,14 @@ import {
   ageAction,
   cityAction,
   contactAction,
-  successAction,
 } from '../store/actions/becomeDonorAction';
+import {
+  genderUpdateAction,
+  nameUpdateAction,
+  ageUpdateAction,
+  cityUpdateAction,
+  contactUpdateAction,
+} from '../store/actions/updateProfileAction';
 
 const BloodDonorFields = ({
   user,
@@ -29,9 +35,43 @@ const BloodDonorFields = ({
   cityActionSet,
   contactActionSet,
   genderActionSet,
+  screen,
+  nameUpdateActionSet,
+  genderUpdateActionSet,
+  ageUpdateActionSet,
+  cityUpdateActionSet,
+  contactUpdateActionSet,
+  nameUpdate,
+  ageUpdate,
+  genderUpdate,
+  cityUpdate,
+  contactUpdate,
 }) => {
+  const setName =
+    screen === 'updateScreen' ? nameUpdateActionSet : nameActionSet;
+  const setGender =
+    screen === 'updateScreen' ? genderUpdateActionSet : genderActionSet;
+  const setAge = screen === 'updateScreen' ? ageUpdateActionSet : ageActionSet;
+  const setCity =
+    screen === 'updateScreen' ? cityUpdateActionSet : cityActionSet;
+  const setContact =
+    screen === 'updateScreen' ? contactUpdateActionSet : contactActionSet;
+
+  const nameValue = screen == 'updateScreen' ? nameUpdate : name;
+  const ageValue = screen == 'updateScreen' ? ageUpdate : age;
+  const cityValue = screen == 'updateScreen' ? cityUpdate : city;
+  const genderValue = screen == 'updateScreen' ? genderUpdate : gender;
+  const contactValue = screen == 'updateScreen' ? contactUpdate : contact;
+
   useEffect(() => {
-    nameActionSet(user.displayName);
+    screen == 'becomdonor' && nameActionSet(user.displayName);
+    if (screen == 'updateScreen') {
+      setName(user.displayName);
+      setGender(user.gender);
+      setAge(user.age);
+      setCity(user.city);
+      setContact(user.contact);
+    }
   }, []);
 
   return (
@@ -42,9 +82,15 @@ const BloodDonorFields = ({
       <View style={styles.inputFieldNameCont}>
         <TextInput
           style={styles.inputFieldName}
-          defaultValue={name}
-          editable={false}
+          defaultValue={nameValue}
+          editable={screen === 'becomedonor' ? false : true}
+          onChangeText={(text) => {
+            setName(text);
+          }}
         />
+        {screen == 'updateScreen' && nameValue === '' && (
+          <Text style={styles.helpText}>* name required</Text>
+        )}
       </View>
 
       <View style={styles.headingContainer}>
@@ -53,26 +99,31 @@ const BloodDonorFields = ({
       <View style={styles.genderCont}>
         <TouchableOpacity
           activeOpacity={0.9}
-          onPress={() => genderActionSet('male')}
+          onPress={() => setGender('male')}
           style={
-            gender === 'male'
+            genderValue === 'male'
               ? styles.activeBloodGroup
               : styles.bloodGroupButton
           }>
-          <Text style={gender === 'male' ? styles.bgTextActive : styles.bgText}>
+          <Text
+            style={
+              genderValue === 'male' ? styles.bgTextActive : styles.bgText
+            }>
             Male
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.9}
-          onPress={() => genderActionSet('female')}
+          onPress={() => setGender('female')}
           style={
-            gender === 'female'
+            genderValue === 'female'
               ? styles.activeBloodGroup
               : styles.bloodGroupButton
           }>
           <Text
-            style={gender === 'female' ? styles.bgTextActive : styles.bgText}>
+            style={
+              genderValue === 'female' ? styles.bgTextActive : styles.bgText
+            }>
             Female
           </Text>
         </TouchableOpacity>
@@ -83,10 +134,12 @@ const BloodDonorFields = ({
       <View style={styles.inputFieldNameCont}>
         <TextInput
           style={styles.inputFieldName}
-          defaultValue={age}
-          onChangeText={(text) => ageActionSet(text)}
+          defaultValue={ageValue}
+          onChangeText={(text) => setAge(text)}
         />
-        <Text style={styles.helpText}>Age must be minimum 18</Text>
+        {Number(ageValue) < 18 && (
+          <Text style={styles.helpText}>* Age must be minimum 18</Text>
+        )}
       </View>
       <View style={styles.headingContainer}>
         <Text style={styles.heading}>City :</Text>
@@ -94,8 +147,8 @@ const BloodDonorFields = ({
       <View style={styles.inputFieldNameCont}>
         <TextInput
           style={styles.inputFieldName}
-          defaultValue={city}
-          onChangeText={(text) => cityActionSet(text)}
+          defaultValue={cityValue}
+          onChangeText={(text) => setCity(text)}
         />
       </View>
       <View style={styles.headingContainer}>
@@ -104,8 +157,8 @@ const BloodDonorFields = ({
       <View style={styles.inputFieldNameCont}>
         <TextInput
           style={styles.inputFieldName}
-          defaultValue={contact}
-          onChangeText={(text) => contactActionSet(text)}
+          defaultValue={contactValue}
+          onChangeText={(text) => setContact(text)}
         />
       </View>
     </View>
@@ -215,6 +268,11 @@ const mapStateToProps = (state) => {
     gender: state.becomeDonorReducer.gender,
     city: state.becomeDonorReducer.city,
     contact: state.becomeDonorReducer.contact,
+    nameUpdate: state.updateProfileReducer.nameUpdate,
+    ageUpdate: state.updateProfileReducer.ageUpdate,
+    genderUpdate: state.updateProfileReducer.genderUpdate,
+    cityUpdate: state.updateProfileReducer.cityUpdate,
+    contactUpdate: state.updateProfileReducer.contactUpdate,
   };
 };
 
@@ -225,6 +283,11 @@ const mapDispatchToProps = (dispatch) => {
     ageActionSet: (age) => dispatch(ageAction(age)),
     cityActionSet: (city) => dispatch(cityAction(city)),
     contactActionSet: (contact) => dispatch(contactAction(contact)),
+    nameUpdateActionSet: (name) => dispatch(nameUpdateAction(name)),
+    genderUpdateActionSet: (gender) => dispatch(genderUpdateAction(gender)),
+    ageUpdateActionSet: (age) => dispatch(ageUpdateAction(age)),
+    cityUpdateActionSet: (city) => dispatch(cityUpdateAction(city)),
+    contactUpdateActionSet: (contact) => dispatch(contactUpdateAction(contact)),
   };
 };
 

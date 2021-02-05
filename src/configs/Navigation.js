@@ -21,6 +21,7 @@ import About from '../screens/About';
 import FindDonor from '../screens/FindDonor';
 import Profile from '../screens/Profile';
 import DonorDetail from '../screens/DonorDetail';
+import UpdateProfile from '../screens/UpdateProfile';
 
 import DrawerContent from '../components/DrawerContent';
 
@@ -74,6 +75,13 @@ const DonorDetailStack = () => {
     </Stack.Navigator>
   );
 };
+const UpdateProfileStack = () => {
+  return (
+    <Stack.Navigator headerMode={false}>
+      <Stack.Screen name="UpdateProfileS" component={UpdateProfile} />
+    </Stack.Navigator>
+  );
+};
 
 const Navigation = ({user, userActionSet, loaderActionSet}) => {
   const onAuthStateChange = async (userCred) => {
@@ -115,6 +123,7 @@ const Navigation = ({user, userActionSet, loaderActionSet}) => {
             component={DonorDetailStack}
             options={{swipeEnabled: false}}
           />
+          <Drawer.Screen name="UpdateProfile" component={UpdateProfileStack} />
         </Drawer.Navigator>
       )}
     </NavigationContainer>

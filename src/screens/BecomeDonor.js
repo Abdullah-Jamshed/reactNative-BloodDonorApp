@@ -25,7 +25,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 const BecomeDonor = ({
   bloodGroup,
   navigation,
-  screen,
   user,
   name,
   age,
@@ -33,7 +32,6 @@ const BecomeDonor = ({
   city,
   contact,
   success,
-
   successActionSet,
 }) => {
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
@@ -136,8 +134,8 @@ const BecomeDonor = ({
           <View style={styles.headingContainer}>
             <Text style={styles.heading}>Select Blood Group :</Text>
           </View>
-          <BloodGroups screen="becomdonor" />
-          <BloodDonorFields />
+          <BloodGroups screen="becomedonor" />
+          <BloodDonorFields screen="becomedonor" />
 
           <TouchableOpacity
             style={

@@ -34,6 +34,7 @@ const SignupScreen = ({
   userActionSet,
 }) => {
   const [alreadyInUse, setAlreadyInUse] = useState(false);
+  const [invalidEmail, setinvalidEmail] = useState(false);
 
   const createUser = () => {
     auth()
@@ -41,6 +42,7 @@ const SignupScreen = ({
       .then(() => {
         // console.log('User account created & signed in!');
         alreadyInUse && setAlreadyInUse(false);
+        invalidEmail && setinvalidEmail(false);
         var userUpdate = auth().currentUser;
         userUpdate
           .updateProfile({
@@ -64,9 +66,9 @@ const SignupScreen = ({
           console.log('That email address is already in use!');
         }
         if (error.code === 'auth/invalid-email') {
-          console.log('That email address is invalid!');
+          setinvalidEmail(true);
         }
-        console.log(error.code);
+        // console.log(error.code);
       });
   };
 
@@ -103,6 +105,9 @@ const SignupScreen = ({
             <Text style={{fontSize: 10, color: '#fb3d4a'}}>
               Email already in use
             </Text>
+          )}
+          {invalidEmail && (
+            <Text style={{fontSize: 10, color: '#fb3d4a'}}>Invalid Email</Text>
           )}
           <TextInput
             style={[styles.inputFeild, {marginBottom: 0}]}

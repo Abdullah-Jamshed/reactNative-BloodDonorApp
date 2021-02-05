@@ -14,6 +14,7 @@ import {
 import database from '@react-native-firebase/database';
 
 import {connect} from 'react-redux';
+import {userAction} from '../store/actions/homeActions';
 
 import Header from '../components/Header';
 import BottomBar from '../components/BottomBar';
@@ -23,7 +24,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 
 const {width, height} = Dimensions.get('window');
 
-const Profile = ({navigation, user}) => {
+const Profile = ({navigation, user, userActionSet}) => {
   const [profileData, setProfileData] = useState('');
   const [loader, setLoader] = useState(true);
 
@@ -32,7 +33,10 @@ const Profile = ({navigation, user}) => {
       .ref()
       .child(`users/${user.uid}`)
       .on('value', (data) => {
-        setProfileData(data.val());
+        const dataObj = data.val();
+        setProfileData(dataObj);
+        // console.log('==>> data Obj', {...dataObj, user});
+        userActionSet({...dataObj, user});
         setLoader(false);
       });
   }, []);
@@ -187,7 +191,12 @@ const Profile = ({navigation, user}) => {
                   </View>
                 </View>
                 <View style={styles.buttonContainer}>
-                  <TouchableOpacity activeOpacity={0.8} style={styles.button}>
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    style={styles.button}
+                    onPress={() => {
+                      navigation.navigate('UpdateProfile');
+                    }}>
                     <Text style={styles.buttonText}>Update</Text>
                   </TouchableOpacity>
 
