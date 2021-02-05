@@ -15,7 +15,6 @@ import {connect} from 'react-redux';
 import {successAction} from '../store/actions/becomeDonorAction';
 
 import BottomBar from '../components/BottomBar';
-import Header from '../components/Header';
 import BloodGroups from '../components/BloodGroups';
 import BloodDonorFields from '../components/BloodDonorFields';
 
@@ -29,9 +28,11 @@ const UpdateProfile = ({
   genderUpdate,
   cityUpdate,
   contactUpdate,
+  bloodGroupUpdate,
 }) => {
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const [loader, setLoader] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const updateUserData = () => {
     setLoader(true);
@@ -39,6 +40,7 @@ const UpdateProfile = ({
       .ref()
       .child(`/users/${user.uid}`)
       .update({
+        bloodGroup: bloodGroupUpdate ? bloodGroupUpdate : null,
         displayName: nameUpdate ? nameUpdate : null,
         age: ageUpdate ? ageUpdate : null,
         gender: genderUpdate ? genderUpdate : null,
@@ -46,7 +48,26 @@ const UpdateProfile = ({
         contact: contactUpdate ? contactUpdate : null,
       })
       .then(() => {
+        database()
+          .ref()
+          .child(`/donors/${user.uid}`)
+          .once('value', (data) => {
+            if (data.val()) {
+              database()
+                .ref()
+                .child(`/donors/${user.uid}`)
+                .update({
+                  name: nameUpdate ? nameUpdate : null,
+                  age: ageUpdate ? ageUpdate : null,
+                  gender: genderUpdate ? genderUpdate : null,
+                  city: cityUpdate ? cityUpdate : null,
+                  contact: contactUpdate ? contactUpdate : null,
+                  bloodGroup: bloodGroupUpdate ? bloodGroupUpdate : null,
+                });
+            }
+          });
         setLoader(false);
+        setSuccess(true);
       });
   };
 
@@ -94,6 +115,18 @@ const UpdateProfile = ({
         </View>
         <BloodGroups screen="updateScreen" />
         <BloodDonorFields screen="updateScreen" />
+
+        {success && (
+          <Text
+            style={{
+              fontSize: 16,
+              color: '#fb3d4a',
+              fontWeight: 'bold',
+              marginTop: 5,
+            }}>
+            Update Successfully
+          </Text>
+        )}
 
         <TouchableOpacity
           onPress={updateUserData}
@@ -196,15 +229,12 @@ const styles = StyleSheet.create({
   },
   backButton: {
     justifyContent: 'center',
-    // alignItems: 'center',
     paddingHorizontal: 20,
     paddingVertical: 15,
     position: 'absolute',
     zIndex: 1,
     backgroundColor: '#fff',
     borderRadius: 100,
-    // left: 20,
-    // top: 10,
   },
 });
 
@@ -216,14 +246,12 @@ const mapStateToProps = (state) => {
     genderUpdate: state.updateProfileReducer.genderUpdate,
     cityUpdate: state.updateProfileReducer.cityUpdate,
     contactUpdate: state.updateProfileReducer.contactUpdate,
-    success: state.becomeDonorReducer.success,
+    bloodGroupUpdate: state.updateProfileReducer.bloodGroupUpdate,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    successActionSet: (success) => dispatch(successAction(success)),
-  };
+  return {};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UpdateProfile);

@@ -3,6 +3,7 @@ import {View, StyleSheet, Text, TouchableOpacity, Button} from 'react-native';
 
 import {connect} from 'react-redux';
 import {bloodGroupAction} from '../store/actions/becomeDonorAction';
+import {userAction} from '../store/actions/homeActions';
 import {bloodGroupUpdateAction} from '../store/actions/updateProfileAction';
 
 const BloodGroups = ({
@@ -11,10 +12,17 @@ const BloodGroups = ({
   bloodGroupUpdateActionSet,
   bloodGroupActionSet,
   screen,
+  user,
 }) => {
   const setBlood =
     screen == 'updateScreen' ? bloodGroupUpdateActionSet : bloodGroupActionSet;
   const bloodType = screen == 'updateScreen' ? bloodGroupUpdate : bloodGroup;
+
+  useEffect(() => {
+    if (user.bloodGroup) {
+      setBlood(user.bloodGroup);
+    }
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -173,6 +181,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   return {
+    user: state.homeReducer.user,
     bloodGroup: state.becomeDonorReducer.bloodGroup,
     bloodGroupUpdate: state.updateProfileReducer.bloodGroupUpdate,
   };
