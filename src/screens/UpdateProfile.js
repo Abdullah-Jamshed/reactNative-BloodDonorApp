@@ -66,10 +66,12 @@ const UpdateProfile = ({
                 .then(() => {
                   setLoader(false);
                   setSuccess(true);
+                  navigation.goBack();
                 });
             } else {
               setLoader(false);
               setSuccess(true);
+              navigation.goBack();
             }
           });
       });
