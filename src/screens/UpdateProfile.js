@@ -12,7 +12,6 @@ import {
 import database from '@react-native-firebase/database';
 
 import {connect} from 'react-redux';
-import {successAction} from '../store/actions/becomeDonorAction';
 
 import BottomBar from '../components/BottomBar';
 import BloodGroups from '../components/BloodGroups';
@@ -63,11 +62,16 @@ const UpdateProfile = ({
                   city: cityUpdate ? cityUpdate : null,
                   contact: contactUpdate ? contactUpdate : null,
                   bloodGroup: bloodGroupUpdate ? bloodGroupUpdate : null,
+                })
+                .then(() => {
+                  setLoader(false);
+                  setSuccess(true);
                 });
+            } else {
+              setLoader(false);
+              setSuccess(true);
             }
           });
-        setLoader(false);
-        setSuccess(true);
       });
   };
 

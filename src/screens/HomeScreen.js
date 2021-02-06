@@ -25,25 +25,38 @@ const {width, height} = Dimensions.get('window');
 const HomeScreen = ({user, navigation, bloodGroupActionSet, userActionSet}) => {
   const createUserNode = async () => {
     if (user) {
-      const {
-        _snapshot: {value},
-      } = await database().ref(`/`).child(`/users/${user.uid}`).once('value');
+      // const {
+      //   _snapshot: {value},
+      // } = await database().ref(`/`).child(`/users/${user.uid}`).once('value');
+      // console.log('user ==>>', user);
 
-      if (!value) {
-        database().ref('/').child(`users/${user.uid}`).set({
-          uid: user.uid,
-          displayName: user.displayName,
-          email: user.email,
-          photoURL: user.photoURL,
+      database()
+        .ref(`/`)
+        .child(`/users/${user.uid}`)
+        .once('value', (data) => {
+          if (!data.val()) {
+            database()
+              .ref('/')
+              .child(`users/${user.uid}`)
+              .set({
+                uid: user.uid,
+                displayName: user.displayName,
+                email: user.email,
+                photoURL: user.photoURL,
+              })
+              .then(() => {
+                console.log('data set');
+              });
+          } else {
+            database()
+              .ref(`/`)
+              .child(`/users/${user.uid}`)
+              .on('value', (data) => {
+                userActionSet(data.val());
+                console.log('data get');
+              });
+          }
         });
-      } else {
-        database()
-          .ref(`/`)
-          .child(`/users/${user.uid}`)
-          .on('value', (data) => {
-            userActionSet(data.val());
-          });
-      }
     }
   };
 
@@ -51,7 +64,7 @@ const HomeScreen = ({user, navigation, bloodGroupActionSet, userActionSet}) => {
     if (String(user.displayName) !== 'null') {
       createUserNode();
     }
-  }, []);
+  }, [user.displayName]);
 
   return (
     <>

@@ -9,9 +9,13 @@ import {
   ScrollView,
   TouchableOpacity,
   StatusBar,
+  Alert,
 } from 'react-native';
 
+import {LoginManager} from 'react-native-fbsdk';
+
 import database from '@react-native-firebase/database';
+import auth from '@react-native-firebase/auth';
 
 import {connect} from 'react-redux';
 import {userAction} from '../store/actions/homeActions';
@@ -28,6 +32,47 @@ const Profile = ({navigation, user, userActionSet}) => {
   const [profileData, setProfileData] = useState('');
   const [loader, setLoader] = useState(true);
 
+  const deleteUser = () => {
+    //   const credential = auth.EmailAuthProvider.credential('c@c.com', '123456');
+    //   auth()
+    //     .currentUser.reauthenticateWithCredential(credential)
+    //     .then(() => {
+    //       const usera = auth().currentUser;
+    //       database()
+    //         .ref()
+    //         .child(`/users/${usera.uid}`)
+    //         .remove()
+    //         .then(() => {
+    //           database().ref().child(`/donors/${usera.uid}`).remove();
+    //         });
+    //       usera.delete(
+    //         () => {
+    //           console.log('delete successful');
+    //           auth().signOut();
+    //           LoginManager.logOut();
+    //         },
+    //         () => {
+    //           console.log('delete unsuccessful');
+    //         },
+    //       );
+    //     });
+  };
+
+  const confirmDelete = () => {
+    return Alert.alert(
+      'Confimation',
+      'Are you sure you want to delete your account ?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+          // onPress: () => null,
+        },
+        {text: 'confirm', onPress: deleteUser},
+      ],
+      {cancelable: false},
+    );
+  };
   useEffect(() => {
     database()
       .ref()
@@ -35,11 +80,14 @@ const Profile = ({navigation, user, userActionSet}) => {
       .on('value', (data) => {
         const dataObj = data.val();
         setProfileData(dataObj);
-        // console.log('==>> data Obj', {...dataObj, user});
         userActionSet({...dataObj, user});
         setLoader(false);
       });
   }, []);
+
+  // useEffect(() => {
+  //   console.log("profileData ===>>>>", profileData);
+  // }, [profileData]);
 
   return (
     <>
@@ -48,7 +96,7 @@ const Profile = ({navigation, user, userActionSet}) => {
           backgroundColor: 'red',
         }}
       />
-      {profileData === '' ? (
+      {profileData === '' || profileData == null ? (
         <View style={styles.loadingCont}>
           <ActivityIndicator color={'#fb3d4a'} size={'large'} />
         </View>
@@ -200,7 +248,10 @@ const Profile = ({navigation, user, userActionSet}) => {
                     <Text style={styles.buttonText}>Update</Text>
                   </TouchableOpacity>
 
-                  <TouchableOpacity activeOpacity={0.8} style={styles.button}>
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    style={styles.button}
+                    onPress={confirmDelete}>
                     <Text style={styles.buttonText}>Delete</Text>
                   </TouchableOpacity>
                 </View>

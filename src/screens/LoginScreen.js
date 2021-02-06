@@ -31,10 +31,10 @@ const LoginScreen = ({navigation, loader, loaderActionSet}) => {
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
+        setSignInLoader(false);
         invalidEmail && setInvalidEmail(false);
         userNotFound && setUserNotFound(false);
         wrongPassword && setWrongPassword(false);
-        setSignInLoader(false);
       })
       .catch((error) => {
         if (error.code === 'auth/invalid-email') {

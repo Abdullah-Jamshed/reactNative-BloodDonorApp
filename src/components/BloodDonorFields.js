@@ -64,7 +64,7 @@ const BloodDonorFields = ({
   const contactValue = screen == 'updateScreen' ? contactUpdate : contact;
 
   useEffect(() => {
-    screen == 'becomdonor' && nameActionSet(user.displayName);
+    screen == 'becomedonor' && nameActionSet(user.displayName);
     if (screen == 'updateScreen') {
       setName(user.displayName);
       setGender(user.gender);
@@ -73,10 +73,6 @@ const BloodDonorFields = ({
       setContact(user.contact);
     }
   }, []);
-
-  useEffect(() => {
-    console.log(ageValue);
-  }, [ageValue]);
 
   return (
     <View style={{width: '100%', alignItems: 'center'}}>
@@ -137,13 +133,13 @@ const BloodDonorFields = ({
       </View>
       <View style={styles.inputFieldNameCont}>
         <TextInput
-        keyboardType="decimal-pad"
+          keyboardType="decimal-pad"
           style={styles.inputFieldName}
           defaultValue={ageValue}
           value={ageValue}
           onChangeText={(text) => {
             if (!isNaN(text)) {
-              setAge(text.replace(/\s/g,''));
+              setAge(text.replace(/\s/g, ''));
             }
           }}
         />
@@ -173,7 +169,7 @@ const BloodDonorFields = ({
           value={contactValue}
           onChangeText={(text) => {
             if (!isNaN(text)) {
-              setContact(text.replace(/\s/g,''));
+              setContact(text.replace(/\s/g, ''));
             }
           }}
         />
