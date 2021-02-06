@@ -1,16 +1,9 @@
-import React, {useState, useEffect} from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Dimensions,
-  StyleSheet,
-} from 'react-native';
+import React, {useState} from 'react';
+import {View, TouchableOpacity, Dimensions, StyleSheet} from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const {width, height} = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 
 const BottomBar = ({navigation, screen}) => {
   const [active, setActive] = useState(screen);
@@ -61,9 +54,6 @@ const styles = StyleSheet.create({
     width: '100%',
     zIndex: 1,
     elevation: 5,
-    // backgroundColor: '#f5f5f5',
-    // paddingHorizontal: 10,
-    // paddingVertical: 20,
   },
   iconContainer: {
     width: width / 2,

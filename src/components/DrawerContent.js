@@ -1,16 +1,8 @@
-import React, {useEffect} from 'react';
-import {
-  Animated,
-  View,
-  Text,
-  Button,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
+import React from 'react';
+import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 
 import {connect} from 'react-redux';
-import {userAction, resethomeAction} from '../store/actions/homeActions';
+import {resethomeAction} from '../store/actions/homeActions';
 import {resetfindDonorAction} from '../store/actions/findDonorAction';
 import {
   successAction,
@@ -18,15 +10,12 @@ import {
 } from '../store/actions/becomeDonorAction';
 
 import auth from '@react-native-firebase/auth';
-import {color} from 'react-native-reanimated';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {LoginManager} from 'react-native-fbsdk';
 
 const DrawerContent = ({
-  userActionSet,
   user,
   navigation,
   successActionSet,
@@ -118,14 +107,12 @@ const DrawerContent = ({
 const styles = StyleSheet.create({
   drawerContainer: {
     flex: 1,
-    // backgroundColor: 'red',
     justifyContent: 'space-between',
   },
   upper: {},
   lower: {},
   signOutButton: {
     flexDirection: 'row',
-    // justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
     paddingVertical: 10,
@@ -157,15 +144,11 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   drawerOptions: {
-    // backgroundColor: 'green',
-    // paddingHorizontal: 20,
     marginTop: 50,
-    // paddingVertical:20
   },
   drawerOption: {
     flexDirection: 'row',
     alignItems: 'center',
-    // padding: 5,
     paddingVertical: 10,
     borderBottomWidth: 2,
     borderBottomColor: '#f5f5f5',
@@ -185,7 +168,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    userActionSet: (user) => dispatch(userAction(user)),
     successActionSet: (success) => dispatch(successAction(success)),
     resethomeActionSet: () => dispatch(resethomeAction()),
     resetBecomeDonorActionSet: () => dispatch(resetBecomeDonorAction()),
