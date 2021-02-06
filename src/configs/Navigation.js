@@ -1,10 +1,8 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text} from 'react-native';
+import React, {useEffect} from 'react';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import {LoginManager} from 'react-native-fbsdk';
 
@@ -23,14 +21,11 @@ import Profile from '../screens/Profile';
 import DonorDetail from '../screens/DonorDetail';
 import UpdateProfile from '../screens/UpdateProfile';
 
+//components
 import DrawerContent from '../components/DrawerContent';
-
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
-const Tab = createBottomTabNavigator();
 
 const HomeStack = () => {
   return (
