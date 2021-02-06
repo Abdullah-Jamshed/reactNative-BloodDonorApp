@@ -35,25 +35,18 @@ const HomeScreen = ({user, navigation, bloodGroupActionSet, userActionSet}) => {
         .child(`/users/${user.uid}`)
         .once('value', (data) => {
           if (!data.val()) {
-            database()
-              .ref('/')
-              .child(`users/${user.uid}`)
-              .set({
-                uid: user.uid,
-                displayName: user.displayName,
-                email: user.email,
-                photoURL: user.photoURL,
-              })
-              .then(() => {
-                console.log('data set');
-              });
+            database().ref('/').child(`users/${user.uid}`).set({
+              uid: user.uid,
+              displayName: user.displayName,
+              email: user.email,
+              photoURL: user.photoURL,
+            });
           } else {
             database()
               .ref(`/`)
               .child(`/users/${user.uid}`)
               .on('value', (data) => {
                 userActionSet(data.val());
-                console.log('data get');
               });
           }
         });

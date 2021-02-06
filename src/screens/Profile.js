@@ -12,10 +12,9 @@ import {
   Alert,
 } from 'react-native';
 
-import {LoginManager} from 'react-native-fbsdk';
-
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
+import {LoginManager} from 'react-native-fbsdk';
 
 import {connect} from 'react-redux';
 import {userAction} from '../store/actions/homeActions';
@@ -26,11 +25,10 @@ import BottomBar from '../components/BottomBar';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 
-const {width, height} = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 
 const Profile = ({navigation, user, userActionSet}) => {
   const [profileData, setProfileData] = useState('');
-  const [loader, setLoader] = useState(true);
 
   const deleteUser = () => {
     //   const credential = auth.EmailAuthProvider.credential('c@c.com', '123456');
@@ -81,13 +79,8 @@ const Profile = ({navigation, user, userActionSet}) => {
         const dataObj = data.val();
         setProfileData(dataObj);
         userActionSet({...dataObj, user});
-        setLoader(false);
       });
   }, []);
-
-  // useEffect(() => {
-  //   console.log("profileData ===>>>>", profileData);
-  // }, [profileData]);
 
   return (
     <>
