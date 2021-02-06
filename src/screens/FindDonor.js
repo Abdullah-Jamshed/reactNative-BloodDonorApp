@@ -12,6 +12,10 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+// firebase
+import database from '@react-native-firebase/database';
+
+// redux store
 import {connect} from 'react-redux';
 import {bloodGroupAction} from '../store/actions/becomeDonorAction';
 import {
@@ -19,14 +23,14 @@ import {
   donorUIDAction,
 } from '../store/actions/findDonorAction';
 
+// components
 import BottomBar from '../components/BottomBar';
 import BloodGroups from '../components/BloodGroups';
 
-import database from '@react-native-firebase/database';
-
+//icons
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const {width, height} = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 
 const FindDonor = ({
   navigation,

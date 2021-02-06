@@ -10,9 +10,12 @@ import {
   ActivityIndicator,
   ImageBackground,
 } from 'react-native';
-import auth from '@react-native-firebase/auth';
 import {AccessToken, LoginManager} from 'react-native-fbsdk';
 
+//firebase
+import auth from '@react-native-firebase/auth';
+
+// redux store
 import {connect} from 'react-redux';
 import {userAction, loaderAction} from '../store/actions/homeActions';
 
@@ -49,7 +52,6 @@ const LoginScreen = ({navigation, loader, loaderActionSet}) => {
           setSignInLoader(false);
           setWrongPassword(true);
         }
-        // console.log(error.code);
       });
   };
   const facebookLogin = async () => {
@@ -174,8 +176,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fff',
     paddingTop: 100,
-    // backgroundColor:"green"
-    // paddingVertical:100,
   },
   circle: {
     width: 80,

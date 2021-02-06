@@ -1,12 +1,11 @@
 import React from 'react';
-import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
 
+// components
 import BottomBar from '../components/BottomBar';
 import Header from '../components/Header';
 
-import database from '@react-native-firebase/database';
-
-const About = ({navigation, screen}) => {
+const About = ({navigation}) => {
   return (
     <>
       <View style={styles.container}>
@@ -36,7 +35,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
-    // backgroundColor: 'red',
   },
   button: {
     backgroundColor: '#fb3d4a',

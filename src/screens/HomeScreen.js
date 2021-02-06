@@ -6,30 +6,25 @@ import {
   Dimensions,
   TouchableOpacity,
   StyleSheet,
-  Linking,
 } from 'react-native';
 
+//redux store
 import {connect} from 'react-redux';
 import {bloodGroupAction} from '../store/actions/becomeDonorAction';
 
+//firebase
 import database from '@react-native-firebase/database';
 
-import Ionicons from 'react-native-vector-icons/Ionicons';
-
+//components
 import BottomBar from '../components/BottomBar';
 import Header from '../components/Header';
 import {userAction} from '../store/actions/homeActions';
 
-const {width, height} = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 
-const HomeScreen = ({user, navigation, bloodGroupActionSet, userActionSet}) => {
+const HomeScreen = ({user, navigation, userActionSet}) => {
   const createUserNode = async () => {
     if (user) {
-      // const {
-      //   _snapshot: {value},
-      // } = await database().ref(`/`).child(`/users/${user.uid}`).once('value');
-      // console.log('user ==>>', user);
-
       database()
         .ref(`/`)
         .child(`/users/${user.uid}`)
@@ -88,8 +83,6 @@ const HomeScreen = ({user, navigation, bloodGroupActionSet, userActionSet}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
     backgroundColor: '#fff',
   },
   homeBg: {
@@ -108,12 +101,10 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   header: {
-    // backgroundColor: '#f5f5f5',
     paddingHorizontal: 20,
     paddingVertical: 10,
   },
   middle: {
-    // alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
   },

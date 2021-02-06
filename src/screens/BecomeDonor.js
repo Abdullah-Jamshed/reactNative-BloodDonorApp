@@ -10,16 +10,20 @@ import {
   Image,
 } from 'react-native';
 
+//firebase
 import database from '@react-native-firebase/database';
 
+// redux store
 import {connect} from 'react-redux';
 import {successAction} from '../store/actions/becomeDonorAction';
 
+// components
 import BottomBar from '../components/BottomBar';
 import Header from '../components/Header';
 import BloodGroups from '../components/BloodGroups';
 import BloodDonorFields from '../components/BloodDonorFields';
 
+// icons
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const BecomeDonor = ({

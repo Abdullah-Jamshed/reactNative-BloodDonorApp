@@ -11,13 +11,17 @@ import {
   Linking,
 } from 'react-native';
 
+//firebase
 import database from '@react-native-firebase/database';
 
+// redux store
 import {connect} from 'react-redux';
 import {donorUIDAction} from '../store/actions/findDonorAction';
 
+// components
 import BottomBar from '../components/BottomBar';
 
+// icons
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Ionicons from 'react-native-vector-icons/Ionicons';

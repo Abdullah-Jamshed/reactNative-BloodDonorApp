@@ -2,17 +2,16 @@ import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
-  Image,
   TextInput,
   StyleSheet,
   Dimensions,
   TouchableOpacity,
-  Keyboard,
 } from 'react-native';
 
+//firebase
 import auth from '@react-native-firebase/auth';
-import database from '@react-native-firebase/database';
 
+// redux store
 import {connect} from 'react-redux';
 import {
   nameAction,

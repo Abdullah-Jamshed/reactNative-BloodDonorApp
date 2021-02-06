@@ -12,16 +12,20 @@ import {
   Alert,
 } from 'react-native';
 
+//firebase
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 import {LoginManager} from 'react-native-fbsdk';
 
+// redux store
 import {connect} from 'react-redux';
 import {userAction} from '../store/actions/homeActions';
 
+// components
 import Header from '../components/Header';
 import BottomBar from '../components/BottomBar';
 
+// icons
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 
