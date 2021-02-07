@@ -9,7 +9,6 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   ImageBackground,
-  Platform,
 } from 'react-native';
 import {AccessToken, LoginManager} from 'react-native-fbsdk';
 
