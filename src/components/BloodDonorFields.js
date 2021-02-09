@@ -155,7 +155,7 @@ const BloodDonorFields = ({
           style={styles.inputFieldName}
           defaultValue={cityValue}
           value={cityValue}
-          onChangeText={(text) => setCity(text)}
+          onChangeText={(text) => setCity(text.replace(/\s/g, ''))}
         />
       </View>
       <View style={styles.headingContainer}>

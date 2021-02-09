@@ -57,15 +57,16 @@ const FindDonor = ({
       .ref('/donors')
       .orderByChild(`city`)
       .equalTo(city.replace(/\s/g, '').toLowerCase())
-      .once('value', (data) => {
+      .on('value', (data) => {
         const dataObj = data.val();
         const arr = [];
         if (dataObj !== null) {
           Object.keys(dataObj).map((key) => {
             if (key !== user.uid) {
-              arr.push(dataObj[key]);
+            arr.push(dataObj[key]);
             }
           });
+          console.log(arr);
           switch (bloodGroup) {
             case 'A+':
               var matchBloodDonor = arr.filter((obj) => {
