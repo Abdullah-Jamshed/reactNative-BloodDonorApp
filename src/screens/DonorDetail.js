@@ -33,6 +33,7 @@ const DonorDetail = ({navigation, donorUID, donorUIDActionSet}) => {
   const [loader, setLoader] = useState(true);
 
   useEffect(() => {
+    setLoader(true);
     if (donorUID) {
       database()
         .ref()
@@ -42,7 +43,7 @@ const DonorDetail = ({navigation, donorUID, donorUIDActionSet}) => {
           setLoader(false);
         });
     }
-  }, []);
+  }, [donorUID]);
 
   return (
     <>
