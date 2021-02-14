@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -85,13 +85,6 @@ const LoginScreen = ({navigation, loader, loaderActionSet}) => {
       return auth().signInWithCredential(facebookCredential);
     }
   };
-
-  useEffect(() => {
-    const subscriber = auth().onAuthStateChanged((user) => {
-      console.log("user ===>>>",user);
-    });
-    return subscriber; // unsubscribe on unmount
-  }, []);
 
   return (
     <>
