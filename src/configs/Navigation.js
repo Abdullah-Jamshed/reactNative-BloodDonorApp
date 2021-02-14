@@ -10,6 +10,7 @@ import auth from '@react-native-firebase/auth';
 
 import {connect} from 'react-redux';
 import {userAction, loaderAction} from '../store/actions/homeActions';
+
 // Screens
 import LoginScreen from '../screens/LoginScreen';
 import HomeScreen from '../screens/HomeScreen';
