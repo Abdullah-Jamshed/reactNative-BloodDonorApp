@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -34,26 +34,33 @@ const LoginScreen = ({navigation, loader, loaderActionSet}) => {
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        setSignInLoader(false);
-        invalidEmail && setInvalidEmail(false);
-        userNotFound && setUserNotFound(false);
-        wrongPassword && setWrongPassword(false);
+        // setSignInLoader(false);
+        // invalidEmail && setInvalidEmail(false);
+        // userNotFound && setUserNotFound(false);
+        // wrongPassword && setWrongPassword(false);
       })
       .catch((error) => {
         if (error.code === 'auth/invalid-email') {
           setSignInLoader(false);
+          userNotFound && setUserNotFound(false);
+          wrongPassword && setWrongPassword(false);
           setInvalidEmail(true);
         }
         if (error.code === 'auth/user-not-found') {
           setSignInLoader(false);
+          invalidEmail && setInvalidEmail(false);
+          wrongPassword && setWrongPassword(false);
           setUserNotFound(true);
         }
         if (error.code === 'auth/wrong-password') {
           setSignInLoader(false);
+          invalidEmail && setInvalidEmail(false);
+          userNotFound && setUserNotFound(false);
           setWrongPassword(true);
         }
       });
   };
+
   const facebookLogin = async () => {
     loaderActionSet(true);
     const result = await LoginManager.logInWithPermissions([
@@ -78,6 +85,13 @@ const LoginScreen = ({navigation, loader, loaderActionSet}) => {
       return auth().signInWithCredential(facebookCredential);
     }
   };
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged((user) => {
+      console.log("user ===>>>",user);
+    });
+    return subscriber; // unsubscribe on unmount
+  }, []);
 
   return (
     <>
